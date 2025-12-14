@@ -19,6 +19,30 @@
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        .fullscreen-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 16px;
+            background: rgba(102, 126, 234, 0.95);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            font-weight: 600;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(118, 75, 162, 0.95);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
 
         .container {
@@ -26,9 +50,10 @@
             max-width: 900px;
             background: white;
             border-radius: 25px;
-            padding: 50px;
+            padding: 40px;
             box-shadow: 0 25px 70px rgba(0,0,0,0.35);
             position: relative;
+            margin-top: 40px;
         }
 
         .game-title {
@@ -114,10 +139,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             padding: 20px;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             border-radius: 15px;
+            height: 90px;
         }
 
         .question-number {
@@ -134,15 +160,32 @@
             padding: 12px 28px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(245, 87, 108, 0.3);
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .question-box {
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            border: 3px solid #e0e0e0;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .question-text {
             font-size: 1.8em;
             color: #2c3e50;
-            margin-bottom: 40px;
             text-align: center;
             font-weight: 600;
             line-height: 1.5;
+            max-width: 100%;
+            word-wrap: break-word;
+            padding: 10px;
         }
 
         .answers {
@@ -165,6 +208,11 @@
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
             position: relative;
             overflow: hidden;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         .answer-btn::before {
@@ -247,29 +295,17 @@
             box-shadow: 0 18px 40px rgba(102, 126, 234, 0.6);
         }
 
-        .fullscreen-btn {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            padding: 6px 10px;
-            background: rgba(102, 126, 234, 0.9);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.75em;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .fullscreen-btn:hover {
-            background: rgba(118, 75, 162, 0.9);
-            transform: scale(1.08);
-        }
-
         @media (max-width: 600px) {
             .container {
                 padding: 30px 20px;
+                margin-top: 60px;
+            }
+
+            .fullscreen-btn {
+                top: 10px;
+                left: 10px;
+                padding: 8px 12px;
+                font-size: 0.8em;
             }
 
             .game-title {
@@ -284,6 +320,11 @@
                 font-size: 4em;
             }
 
+            .question-box {
+                min-height: 180px;
+                padding: 20px;
+            }
+
             .question-text {
                 font-size: 1.4em;
             }
@@ -295,30 +336,29 @@
             .answer-btn {
                 padding: 20px;
                 font-size: 1.1em;
-            }
-
-            .fullscreen-btn {
-                top: 10px;
-                left: 10px;
-                padding: 5px 8px;
-                font-size: 0.7em;
+                min-height: 80px;
             }
 
             .timer {
                 font-size: 2em;
                 padding: 10px 20px;
+                min-width: 100px;
             }
 
             .question-number {
                 font-size: 1.1em;
             }
+
+            .question-header {
+                height: 80px;
+            }
         }
     </style>
 </head>
 <body>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">🖵 شاشة كاملة</button>
+    
     <div class="container">
-        <button class="fullscreen-btn" onclick="toggleFullscreen()">شاشة كاملة</button>
-        
         <h1 class="game-title">خمنها صح</h1>
 
         <div class="welcome-screen" id="welcomeScreen">
@@ -331,7 +371,9 @@
                 <div class="question-number" id="questionNumber">السؤال 1 من 5</div>
                 <div class="timer" id="timer">10</div>
             </div>
-            <div class="question-text" id="questionText"></div>
+            <div class="question-box">
+                <div class="question-text" id="questionText"></div>
+            </div>
             <div class="answers" id="answersContainer"></div>
         </div>
 
@@ -343,6 +385,10 @@
             <button class="restart-btn" onclick="restartGame()">العب مرة أخرى</button>
         </div>
     </div>
+
+    <audio id="tickSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
         const questions = [
@@ -376,6 +422,12 @@
         let currentQuestion = 0;
         let timer;
         let timeLeft = 10;
+        let tickSound;
+
+        function initGame() {
+            tickSound = document.getElementById('tickSound');
+            startWelcomeCountdown();
+        }
 
         function startWelcomeCountdown() {
             let countdown = 5;
@@ -421,10 +473,35 @@
         function startTimer() {
             timeLeft = 10;
             document.getElementById('timer').textContent = timeLeft;
+            let tickCount = 0;
+            
+            // تشغيل صوت التيك توك كل ثانية
+            const playTickSound = () => {
+                if (tickSound) {
+                    tickSound.currentTime = 0;
+                    tickSound.play().catch(e => console.log("لم يتم تشغيل الصوت:", e));
+                }
+            };
+
+            // تشغيل الصوت أول مرة
+            playTickSound();
             
             timer = setInterval(() => {
                 timeLeft--;
                 document.getElementById('timer').textContent = timeLeft;
+                tickCount++;
+                
+                // تشغيل صوت التيك توك كل ثانية
+                if (timeLeft > 0) {
+                    playTickSound();
+                }
+                
+                // تغيير لون المؤقت عندما يقل الوقت
+                if (timeLeft <= 5) {
+                    document.getElementById('timer').style.background = 'linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%)';
+                } else {
+                    document.getElementById('timer').style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                }
                 
                 if (timeLeft === 0) {
                     clearInterval(timer);
@@ -474,6 +551,7 @@
             document.getElementById('endScreen').style.display = 'none';
             document.getElementById('welcomeScreen').style.display = 'block';
             document.getElementById('welcomeCountdown').textContent = '5';
+            document.getElementById('timer').style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
             startWelcomeCountdown();
         }
 
@@ -485,9 +563,25 @@
             }
         }
 
-        window.onload = () => {
-            startWelcomeCountdown();
-        };
+        // دعم متصفحات مختلفة للشاشة الكاملة
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        function handleFullscreenChange() {
+            const fullscreenBtn = document.querySelector('.fullscreen-btn');
+            if (document.fullscreenElement || 
+                document.webkitFullscreenElement || 
+                document.mozFullScreenElement || 
+                document.msFullscreenElement) {
+                fullscreenBtn.textContent = '✖ خروج من الشاشة الكاملة';
+            } else {
+                fullscreenBtn.textContent = '🖵 شاشة كاملة';
+            }
+        }
+
+        window.onload = initGame;
     </script>
 </body>
 </html>
