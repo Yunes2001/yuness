@@ -2,935 +2,753 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>كويز الثقافة العربية | اختبر معلوماتك</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة كويز - خمنها صح</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --accent: #f72585;
-            --success: #4cc9f0;
-            --danger: #f72585;
-            --warning: #f8961e;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --radius: 16px;
-            --transition: all 0.3s ease;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: var(--dark);
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
-            line-height: 1.6;
+            padding: 20px;
             overflow-x: hidden;
         }
         
         .container {
             width: 100%;
-            max-width: 500px;
-            background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             overflow: hidden;
             position: relative;
         }
         
-        /* شاشة البداية */
-        .start-screen {
-            padding: 30px 25px;
+        /* عنوان اللعبة المتحرك */
+        .game-title {
             text-align: center;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        }
-        
-        .logo {
-            font-size: 2.8rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .start-title {
-            font-size: 1.8rem;
-            color: var(--secondary);
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        .start-subtitle {
-            font-size: 1.4rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-        
-        .start-desc {
-            font-size: 1rem;
-            color: var(--gray);
-            margin-bottom: 25px;
-            padding: 0 10px;
-        }
-        
-        .start-countdown {
-            font-size: 4rem;
-            font-weight: 800;
-            color: var(--accent);
-            margin: 20px 0;
-            font-family: 'Courier New', monospace;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        /* شاشة الأسئلة */
-        .quiz-screen {
             padding: 25px 20px;
-            display: none;
-        }
-        
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        
-        .question-counter {
-            background: var(--primary);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        
-        .timer-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .timer {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--accent);
-            font-family: 'Courier New', monospace;
-        }
-        
-        .timer-label {
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin-top: 5px;
-        }
-        
-        .question-box {
-            background: #f8f9ff;
-            padding: 20px;
-            border-radius: var(--radius);
-            margin-bottom: 25px;
-            border-right: 5px solid var(--primary);
-            box-shadow: var(--shadow);
-        }
-        
-        .question-text {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--dark);
-            line-height: 1.5;
-        }
-        
-        .options-container {
-            display: grid;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .option {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 16px 15px;
-            font-size: 1rem;
-            text-align: right;
-            cursor: pointer;
-            transition: var(--transition);
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
             position: relative;
             overflow: hidden;
-            font-weight: 500;
         }
         
-        .option:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-        
-        .option.selected {
-            border-color: var(--primary);
-            background: rgba(67, 97, 238, 0.1);
-        }
-        
-        .option.correct {
-            border-color: #4CAF50;
-            background: rgba(76, 175, 80, 0.15);
-            animation: correctGlow 1.5s ease;
-        }
-        
-        .option.wrong {
-            border-color: #f44336;
-            background: rgba(244, 67, 54, 0.1);
-        }
-        
-        @keyframes correctGlow {
-            0%, 100% { box-shadow: 0 0 5px rgba(76, 175, 80, 0); }
-            50% { box-shadow: 0 0 20px rgba(76, 175, 80, 0.5); }
-        }
-        
-        .answer-feedback {
-            background: linear-gradient(135deg, #4CAF50, #2E7D32);
-            color: white;
-            padding: 15px;
-            border-radius: var(--radius);
-            margin: 15px 0;
-            display: none;
-            animation: slideUp 0.5s ease;
-            text-align: center;
-        }
-        
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        /* شاشة النتائج */
-        .result-screen {
-            padding: 30px 25px;
-            text-align: center;
-            display: none;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        }
-        
-        .trophy {
-            font-size: 4rem;
-            color: #FFD700;
-            margin-bottom: 20px;
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .result-title {
-            font-size: 1.8rem;
-            color: var(--secondary);
+        .game-title h1 {
+            font-size: 3.5rem;
             margin-bottom: 10px;
-            font-weight: 700;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: titleAnimation 2s infinite alternate;
         }
         
-        .score-container {
-            background: white;
-            padding: 25px;
-            border-radius: var(--radius);
-            margin: 25px 0;
-            box-shadow: var(--shadow);
+        @keyframes titleAnimation {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+            100% {
+                transform: scale(1.05);
+                text-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+            }
         }
         
-        .score-circle {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 20px;
-            font-weight: 800;
-            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
-        }
-        
-        .score-number {
-            font-size: 3rem;
-            line-height: 1;
-        }
-        
-        .score-total {
+        .game-title p {
             font-size: 1.2rem;
             opacity: 0.9;
         }
         
-        .score-message {
-            font-size: 1.3rem;
-            color: var(--dark);
-            margin-bottom: 15px;
-            font-weight: 600;
+        /* شاشات اللعبة */
+        .screen {
+            padding: 30px;
+            display: none;
+            text-align: center;
         }
         
-        .score-emoji {
-            font-size: 1.5rem;
-            margin-right: 5px;
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
         }
         
-        .share-section {
-            background: white;
-            padding: 20px;
-            border-radius: var(--radius);
-            margin: 25px 0;
-            box-shadow: var(--shadow);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .share-title {
-            font-size: 1.2rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .share-text {
-            font-size: 1rem;
-            color: var(--gray);
+        /* شاشة البداية */
+        #start-screen h2 {
+            font-size: 2.2rem;
             margin-bottom: 20px;
+            color: #ffcc00;
+        }
+        
+        #start-screen p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        /* شاشة التركيز */
+        #focus-screen {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        }
+        
+        #focus-screen h2 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            color: #00ffcc;
+        }
+        
+        #focus-screen .countdown {
+            font-size: 8rem;
+            font-weight: bold;
+            color: #ffcc00;
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.7);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* شاشة السؤال */
+        .question-number {
+            font-size: 1.4rem;
+            color: #ffcc00;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
             line-height: 1.5;
+            padding: 0 10px;
         }
         
-        .share-buttons {
-            display: flex;
-            justify-content: center;
+        .timer-container {
+            width: 100%;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .timer-bar {
+            height: 100%;
+            width: 100%;
+            background-color: #4CAF50;
+            border-radius: 10px;
+            transition: width 0.1s linear;
+        }
+        
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
             gap: 15px;
-            margin-top: 20px;
+            margin-bottom: 25px;
         }
         
-        .share-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 50px;
-            border: none;
-            font-weight: 600;
-            font-size: 0.9rem;
+        @media (min-width: 768px) {
+            .options-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .option {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 18px;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            min-height: 48px;
+            transition: all 0.3s ease;
         }
         
-        .share-btn.whatsapp {
-            background: linear-gradient(135deg, #25D366, #128C7E);
+        .option:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .option.correct {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
             color: white;
         }
         
-        .share-btn.facebook {
-            background: linear-gradient(135deg, #1877F2, #0D5CB6);
+        .option.wrong {
+            background-color: #f44336;
+            border-color: #f44336;
             color: white;
         }
         
-        .share-btn.twitter {
-            background: linear-gradient(135deg, #1DA1F2, #0D8BD9);
-            color: white;
+        /* شاشة النتائج */
+        #result-screen h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffcc00;
         }
         
-        .share-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        .score-container {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 30px 0;
+            color: #00ffcc;
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.7);
         }
         
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
+        .result-message {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            padding: 0 20px;
         }
         
+        .share-message {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            font-size: 1.3rem;
+            border: 2px dashed #ffcc00;
+        }
+        
+        /* الأزرار */
         .btn {
-            flex: 1;
-            padding: 16px;
-            border-radius: 50px;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: white;
             border: none;
-            font-weight: 600;
-            font-size: 1rem;
+            padding: 16px 40px;
+            font-size: 1.3rem;
+            border-radius: 50px;
             cursor: pointer;
-            transition: var(--transition);
-            display: flex;
+            margin: 10px;
+            transition: all 0.3s ease;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
         }
         
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-        
-        .btn-secondary {
-            background: white;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-        
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 7px 15px rgba(255, 65, 108, 0.4);
         }
         
-        /* رسائل الوقت والإجابات */
-        .timeout-message {
-            background: linear-gradient(135deg, #FF416C, #FF4B2B);
-            color: white;
-            padding: 15px;
-            border-radius: var(--radius);
-            margin: 15px 0;
-            text-align: center;
-            display: none;
-            animation: slideUp 0.5s ease;
+        .btn:active {
+            transform: translateY(-1px);
         }
         
-        .correct-answer-message {
-            background: linear-gradient(135deg, #4CAF50, #2E7D32);
-            color: white;
-            padding: 15px;
-            border-radius: var(--radius);
-            margin: 15px 0;
-            text-align: center;
-            display: none;
-            animation: slideUp 0.5s ease;
+        .btn i {
+            font-size: 1.2rem;
         }
         
-        /* شريط التقدم */
-        .progress-container {
-            height: 6px;
-            background: #f0f0f0;
-            border-radius: 3px;
-            margin: 15px 0;
-            overflow: hidden;
+        /* أزرار التحكم */
+        .controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
         
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            width: 20%;
-            transition: width 0.5s ease;
-            border-radius: 3px;
+        /* وضع ملء الشاشة */
+        body:fullscreen .container {
+            max-width: 95%;
+            margin: 20px auto;
         }
         
-        /* تحسينات للهواتف */
-        @media (max-width: 480px) {
-            .container {
-                border-radius: 12px;
-            }
-            
-            .start-screen, .quiz-screen, .result-screen {
-                padding: 20px 15px;
-            }
-            
-            .start-title {
-                font-size: 1.5rem;
-            }
-            
-            .start-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .question-text {
-                font-size: 1.1rem;
-            }
-            
-            .option {
-                padding: 14px 12px;
-                font-size: 0.95rem;
-            }
-            
-            .score-circle {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .score-number {
+        body:fullscreen .game-title h1 {
+            font-size: 4rem;
+        }
+        
+        body:fullscreen .question-text {
+            font-size: 2.2rem;
+        }
+        
+        /* التكيف مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .game-title h1 {
                 font-size: 2.5rem;
             }
             
-            .share-buttons, .action-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .btn, .share-btn {
-                width: 100%;
-            }
-        }
-        
-        @media (max-width: 350px) {
-            .start-countdown {
-                font-size: 3rem;
-            }
-            
-            .timer {
-                font-size: 1.8rem;
-            }
-            
             .question-text {
-                font-size: 1rem;
+                font-size: 1.5rem;
             }
             
-            .option {
-                padding: 12px 10px;
-                font-size: 0.9rem;
+            #focus-screen h2 {
+                font-size: 2.2rem;
+            }
+            
+            #focus-screen .countdown {
+                font-size: 5rem;
+            }
+            
+            .btn {
+                padding: 14px 30px;
+                font-size: 1.1rem;
             }
         }
         
-        /* تحسينات اللمس */
-        .option:active {
-            transform: scale(0.98);
-        }
-        
-        /* تحميل سريع */
-        .loading {
-            display: none;
-            position: fixed;
+        /* تأثيرات إضافية */
+        .particles {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255,255,255,0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            pointer-events: none;
+            z-index: 0;
         }
         
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--primary);
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.5);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: float 5s infinite linear;
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(20px);
+                opacity: 0;
+            }
+        }
+        
+        .fireworks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            display: none;
+        }
+        
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: explode 1s forwards;
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(20);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- عنوان اللعبة -->
+        <div class="game-title">
+            <h1>خمنها صح</h1>
+            <p>اختبر معلوماتك في وقت محدود!</p>
+        </div>
+        
+        <!-- الجسيمات المتحركة -->
+        <div class="particles" id="particles"></div>
+        
+        <!-- الألعاب النارية للنتائج -->
+        <div class="fireworks" id="fireworks"></div>
+        
         <!-- شاشة البداية -->
-        <div class="start-screen" id="startScreen">
-            <div class="logo">
-                <i class="fas fa-brain"></i>
+        <div class="screen active" id="start-screen">
+            <h2>مرحباً بك في لعبة "خمنها صح"!</h2>
+            <p>ستظهر لك 5 أسئلة، لكل سؤال 10 ثوانٍ فقط للإجابة.<br>
+            بعد انتهاء الوقت أو اختيارك للإجابة، ستظهر الإجابة الصحيحة باللون الأخضر.<br>
+            استعد للبدء وتذكر: التركيز هو المفتاح!</p>
+            <div class="controls">
+                <button class="btn" id="start-btn">
+                    <i class="fas fa-play"></i> ابدأ اللعبة
+                </button>
+                <button class="btn" id="fullscreen-btn">
+                    <i class="fas fa-expand"></i> ملء الشاشة
+                </button>
             </div>
-            <h1 class="start-title">كويز الثقافة العربية</h1>
-            <h2 class="start-subtitle">موضوع اليوم: التراث العربي</h2>
-            <p class="start-desc">اختبر معلوماتك في الثقافة العربية من خلال 5 أسئلة. لديك 10 ثوانٍ لكل سؤال. انتبه للوقت!</p>
-            
-            <div class="start-countdown" id="startCountdown">5</div>
-            
-            <div class="progress-container">
-                <div class="progress-bar" id="startProgress"></div>
-            </div>
-            
-            <p class="start-desc">ابدأ التحدي الآن وشارك نتيجتك مع أصدقائك!</p>
+        </div>
+        
+        <!-- شاشة التركيز -->
+        <div class="screen" id="focus-screen">
+            <h2>ركز جيدًا!</h2>
+            <div class="countdown" id="focus-countdown">5</div>
+            <p>استعد، اللعبة ستبدأ بعد...</p>
         </div>
         
         <!-- شاشة الأسئلة -->
-        <div class="quiz-screen" id="quizScreen">
-            <div class="header">
-                <div class="question-counter">
-                    سؤال <span id="currentQuestion">1</span>/5
-                </div>
-                <div class="timer-container">
-                    <div class="timer" id="timer">10</div>
-                    <div class="timer-label">ثوانٍ متبقية</div>
-                </div>
+        <div class="screen" id="question-screen">
+            <div class="question-number">السؤال <span id="current-question">1</span> من 5</div>
+            <div class="question-text" id="question-text"></div>
+            
+            <div class="timer-container">
+                <div class="timer-bar" id="timer-bar"></div>
             </div>
             
-            <div class="progress-container">
-                <div class="progress-bar" id="quizProgress"></div>
+            <div class="options-container" id="options-container">
+                <!-- سيتم إضافة الخيارات ديناميكيًا -->
             </div>
             
-            <div class="question-box">
-                <div class="question-text" id="questionText"></div>
-            </div>
-            
-            <div class="timeout-message" id="timeoutMessage">
-                <i class="fas fa-clock"></i> انتهى الوقت! شاهد الإجابة الصحيحة...
-            </div>
-            
-            <div class="correct-answer-message" id="correctAnswerMessage">
-                <i class="fas fa-lightbulb"></i> الإجابة الصحيحة: <span id="correctAnswerText"></span>
-            </div>
-            
-            <div class="options-container" id="optionsContainer">
-                <!-- الخيارات تضاف هنا بالجافاسكريبت -->
+            <div class="controls">
+                <button class="btn" id="next-btn" style="display: none;">
+                    <i class="fas fa-forward"></i> التالي
+                </button>
             </div>
         </div>
         
         <!-- شاشة النتائج -->
-        <div class="result-screen" id="resultScreen">
-            <div class="trophy">
-                <i class="fas fa-trophy"></i>
+        <div class="screen" id="result-screen">
+            <h2>انتهت اللعبة!</h2>
+            <div class="score-container">نقاطك: <span id="final-score">0</span>/50</div>
+            
+            <div class="result-message" id="result-message"></div>
+            
+            <div class="share-message">
+                <i class="fas fa-share-alt"></i>
+                <strong>شاركنا كم جمعت من نقاط في خانة التعليقات!</strong>
             </div>
             
-            <h1 class="result-title">تهانينا! لقد أكملت الكويز</h1>
-            
-            <div class="score-container">
-                <div class="score-circle">
-                    <div class="score-number" id="finalScore">0</div>
-                    <div class="score-total">/ 5</div>
-                </div>
-                
-                <div class="score-message">
-                    <span class="score-emoji" id="scoreEmoji">🎯</span>
-                    <span id="scoreMessage">جرب مرة أخرى!</span>
-                </div>
-            </div>
-            
-            <div class="share-section">
-                <h3 class="share-title">شارك نتيجتك مع أصدقائك</h3>
-                <p class="share-text">
-                    <i class="fas fa-video"></i> أنشر الفيديو مع أصدقائك وشاركنا كم جمعت من نقاط في التعليقات!
-                </p>
-                
-                <div class="share-buttons">
-                    <button class="share-btn whatsapp" id="shareWhatsApp">
-                        <i class="fab fa-whatsapp"></i> واتساب
-                    </button>
-                    <button class="share-btn facebook" id="shareFacebook">
-                        <i class="fab fa-facebook"></i> فيسبوك
-                    </button>
-                    <button class="share-btn twitter" id="shareTwitter">
-                        <i class="fab fa-twitter"></i> تويتر
-                    </button>
-                </div>
-            </div>
-            
-            <div class="action-buttons">
-                <button class="btn btn-primary" id="playAgainBtn">
-                    <i class="fas fa-redo"></i> لعب مرة أخرى
+            <div class="controls">
+                <button class="btn" id="restart-btn">
+                    <i class="fas fa-redo"></i> العب مرة أخرى
                 </button>
-                <button class="btn btn-secondary" id="viewAnswersBtn">
-                    <i class="fas fa-list"></i> رؤية الإجابات
+                <button class="btn" id="fullscreen-btn-2">
+                    <i class="fas fa-expand"></i> ملء الشاشة
                 </button>
             </div>
         </div>
     </div>
 
     <script>
-        // البيانات
-        const quizData = [
-            {
-                question: "من هو مؤلف كتاب 'الأغاني' الذي يعد من أهم مصادر الأدب العربي؟",
-                options: ["الأصمعي", "أبو الفرج الأصفهاني", "الجاحظ", "ابن قتيبة"],
-                correct: 1
-            },
-            {
-                question: "أي من هذه المدن يطلق عليها اسم 'مدينة الشمس'؟",
-                options: ["بعلبك", "تدمر", "حمص", "حلب"],
-                correct: 0
-            },
-            {
-                question: "من هو الشاعر صاحب لقب 'شاعر القطرين'؟",
-                options: ["خليل مطران", "أحمد شوقي", "حافظ إبراهيم", "إيليا أبو ماضي"],
-                correct: 0
-            },
-            {
-                question: "ما اسم أول جامعة أنشئت في العالم العربي؟",
-                options: ["الأزهر", "القرويين", "الزيتونة", "بغداد"],
-                correct: 1
-            },
-            {
-                question: "من هو الخليفة العباسي الذي أسس 'بيت الحكمة' في بغداد؟",
-                options: ["هارون الرشيد", "المأمون", "المنصور", "المعتصم"],
-                correct: 1
-            }
-        ];
-
-        // العناصر
-        const startScreen = document.getElementById('startScreen');
-        const quizScreen = document.getElementById('quizScreen');
-        const resultScreen = document.getElementById('resultScreen');
-        const startCountdownEl = document.getElementById('startCountdown');
-        const startProgress = document.getElementById('startProgress');
-        const questionText = document.getElementById('questionText');
-        const optionsContainer = document.getElementById('optionsContainer');
-        const timerEl = document.getElementById('timer');
-        const currentQuestionEl = document.getElementById('currentQuestion');
-        const quizProgress = document.getElementById('quizProgress');
-        const timeoutMessage = document.getElementById('timeoutMessage');
-        const correctAnswerMessage = document.getElementById('correctAnswerMessage');
-        const correctAnswerText = document.getElementById('correctAnswerText');
-        const finalScoreEl = document.getElementById('finalScore');
-        const scoreMessage = document.getElementById('scoreMessage');
-        const scoreEmoji = document.getElementById('scoreEmoji');
-        const playAgainBtn = document.getElementById('playAgainBtn');
-        const viewAnswersBtn = document.getElementById('viewAnswersBtn');
-        const shareWhatsApp = document.getElementById('shareWhatsApp');
-        const shareFacebook = document.getElementById('shareFacebook');
-        const shareTwitter = document.getElementById('shareTwitter');
-
-        // المتغيرات
+        // عناصر DOM
+        const startScreen = document.getElementById('start-screen');
+        const focusScreen = document.getElementById('focus-screen');
+        const questionScreen = document.getElementById('question-screen');
+        const resultScreen = document.getElementById('result-screen');
+        
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const fullscreenBtn2 = document.getElementById('fullscreen-btn-2');
+        
+        const focusCountdown = document.getElementById('focus-countdown');
+        const questionText = document.getElementById('question-text');
+        const currentQuestionElement = document.getElementById('current-question');
+        const optionsContainer = document.getElementById('options-container');
+        const timerBar = document.getElementById('timer-bar');
+        const finalScoreElement = document.getElementById('final-score');
+        const resultMessageElement = document.getElementById('result-message');
+        
+        // متغيرات اللعبة
         let currentQuestionIndex = 0;
         let score = 0;
+        let timer;
         let timeLeft = 10;
-        let timerInterval;
-        let userAnswers = [];
-        let startCountdown = 5;
-        let startCountdownInterval;
-        let gameActive = false;
-
-        // بدء العد التنازلي الأولي
-        function startInitialCountdown() {
-            startCountdownInterval = setInterval(() => {
-                startCountdown--;
-                startCountdownEl.textContent = startCountdown;
-                startProgress.style.width = `${(5 - startCountdown) * 20}%`;
+        let questionsAnswered = 0;
+        
+        // أسئلة اللعبة
+        const questions = [
+            {
+                question: "ما هي عاصمة المملكة العربية السعودية؟",
+                options: ["جدة", "الرياض", "مكة", "الدمام"],
+                correctAnswer: 1
+            },
+            {
+                question: "كم عدد أوجه حجر النرد؟",
+                options: ["4", "6", "8", "10"],
+                correctAnswer: 1
+            },
+            {
+                question: "ما هو أطول نهر في العالم؟",
+                options: ["نهر النيل", "نهر الأمازون", "نهر المسيسيبي", "نهر اليانغتسي"],
+                correctAnswer: 0
+            },
+            {
+                question: "في أي عام هبط الإنسان على سطح القمر لأول مرة؟",
+                options: ["1965", "1969", "1972", "1975"],
+                correctAnswer: 1
+            },
+            {
+                question: "ما هو العنصر الكيميائي الذي رمزه 'O'؟",
+                options: ["ذهب", "فضة", "أكسجين", "أوزميوم"],
+                correctAnswer: 2
+            }
+        ];
+        
+        // تهيئة الجسيمات المتحركة
+        function initParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // إنشاء الألعاب النارية
+        function createFireworks() {
+            const fireworksContainer = document.getElementById('fireworks');
+            fireworksContainer.style.display = 'block';
+            
+            // إزالة الألعاب النارية القديمة
+            while (fireworksContainer.firstChild) {
+                fireworksContainer.removeChild(fireworksContainer.firstChild);
+            }
+            
+            // إنشاء ألعاب نارية جديدة
+            for (let i = 0; i < 30; i++) {
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+                firework.style.left = Math.random() * 100 + '%';
+                firework.style.top = Math.random() * 100 + '%';
+                firework.style.backgroundColor = getRandomColor();
+                firework.style.animationDelay = Math.random() * 1.5 + 's';
+                fireworksContainer.appendChild(firework);
+            }
+            
+            // إخفاء الألعاب النارية بعد انتهاء العرض
+            setTimeout(() => {
+                fireworksContainer.style.display = 'none';
+            }, 1500);
+        }
+        
+        // الحصول على لون عشوائي
+        function getRandomColor() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff9900', '#ff0099'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // بدء اللعبة
+        startBtn.addEventListener('click', startGame);
+        
+        function startGame() {
+            // الانتقال إلى شاشة التركيز
+            startScreen.classList.remove('active');
+            focusScreen.classList.add('active');
+            
+            // بدء عداد التركيز
+            let countdown = 5;
+            focusCountdown.textContent = countdown;
+            
+            const focusTimer = setInterval(() => {
+                countdown--;
+                focusCountdown.textContent = countdown;
                 
-                if (startCountdown <= 0) {
-                    clearInterval(startCountdownInterval);
-                    startGame();
+                if (countdown <= 0) {
+                    clearInterval(focusTimer);
+                    startQuestions();
                 }
             }, 1000);
         }
-
-        // بدء اللعبة
-        function startGame() {
-            startScreen.style.display = 'none';
-            quizScreen.style.display = 'block';
-            gameActive = true;
+        
+        // بدء الأسئلة
+        function startQuestions() {
+            focusScreen.classList.remove('active');
+            questionScreen.classList.add('active');
+            
             loadQuestion();
-            startTimer();
         }
-
+        
         // تحميل السؤال
         function loadQuestion() {
-            resetQuestionUI();
-            const question = quizData[currentQuestionIndex];
-            
-            questionText.textContent = question.question;
-            currentQuestionEl.textContent = currentQuestionIndex + 1;
-            quizProgress.style.width = `${((currentQuestionIndex + 1) / quizData.length) * 100}%`;
-            
-            optionsContainer.innerHTML = '';
-            question.options.forEach((option, index) => {
-                const button = document.createElement('div');
-                button.className = 'option';
-                button.textContent = option;
-                button.dataset.index = index;
-                
-                button.addEventListener('click', () => selectAnswer(index));
-                optionsContainer.appendChild(button);
-            });
-            
+            // إعادة تعيين المؤقت
+            clearInterval(timer);
             timeLeft = 10;
-            timerEl.textContent = timeLeft;
-            timerEl.style.color = '#4361ee';
-        }
-
-        // إعادة تعيين واجهة السؤال
-        function resetQuestionUI() {
-            timeoutMessage.style.display = 'none';
-            correctAnswerMessage.style.display = 'none';
-        }
-
-        // اختيار الإجابة
-        function selectAnswer(selectedIndex) {
-            if (!gameActive) return;
+            timerBar.style.width = '100%';
+            timerBar.style.backgroundColor = '#4CAF50';
             
-            gameActive = false;
-            clearInterval(timerInterval);
-            userAnswers[currentQuestionIndex] = selectedIndex;
+            // إظهار رقم السؤال
+            currentQuestionElement.textContent = currentQuestionIndex + 1;
             
-            const options = document.querySelectorAll('.option');
-            const correctIndex = quizData[currentQuestionIndex].correct;
+            // تحميل نص السؤال
+            questionText.textContent = questions[currentQuestionIndex].question;
             
-            // عرض الإجابة الصحيحة والخاطئة
-            options.forEach((option, index) => {
-                option.classList.remove('selected');
-                if (index === selectedIndex) {
-                    option.classList.add('selected');
-                }
-                if (index === correctIndex) {
-                    option.classList.add('correct');
-                } else if (index === selectedIndex && index !== correctIndex) {
-                    option.classList.add('wrong');
-                }
+            // تحميل الخيارات
+            optionsContainer.innerHTML = '';
+            nextBtn.style.display = 'none';
+            
+            questions[currentQuestionIndex].options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.textContent = option;
+                optionElement.dataset.index = index;
+                
+                optionElement.addEventListener('click', () => selectAnswer(index));
+                optionsContainer.appendChild(optionElement);
             });
             
-            // التحقق من الإجابة
-            if (selectedIndex === correctIndex) {
-                score++;
-            }
-            
-            // عرض الإجابة الصحيحة
-            correctAnswerText.textContent = quizData[currentQuestionIndex].options[correctIndex];
-            correctAnswerMessage.style.display = 'block';
-            
-            // الانتقال للسؤال التالي
-            setTimeout(nextQuestion, 2000);
+            // بدء المؤقت
+            startTimer();
         }
-
+        
         // بدء المؤقت
         function startTimer() {
-            timerInterval = setInterval(() => {
+            timer = setInterval(() => {
                 timeLeft--;
-                timerEl.textContent = timeLeft;
+                timerBar.style.width = (timeLeft / 10) * 100 + '%';
                 
-                // تغيير اللون عند اقتراب انتهاء الوقت
-                if (timeLeft <= 5) {
-                    timerEl.style.color = '#f72585';
+                // تغيير لون المؤقت حسب الوقت المتبقي
+                if (timeLeft <= 3) {
+                    timerBar.style.backgroundColor = '#f44336';
+                } else if (timeLeft <= 6) {
+                    timerBar.style.backgroundColor = '#ff9800';
                 }
                 
                 // انتهاء الوقت
                 if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    handleTimeout();
+                    clearInterval(timer);
+                    timeUp();
                 }
             }, 1000);
         }
-
-        // التعامل مع انتهاء الوقت
-        function handleTimeout() {
-            if (!gameActive) return;
+        
+        // انتهاء الوقت
+        function timeUp() {
+            // منع المزيد من النقرات
+            disableOptions();
             
-            gameActive = false;
-            userAnswers[currentQuestionIndex] = -1;
-            timeoutMessage.style.display = 'block';
+            // تسليط الضوء على الإجابة الصحيحة
+            const correctIndex = questions[currentQuestionIndex].correctAnswer;
+            const correctOption = document.querySelector(`.option[data-index="${correctIndex}"]`);
+            correctOption.classList.add('correct');
             
-            const correctIndex = quizData[currentQuestionIndex].correct;
-            const options = document.querySelectorAll('.option');
-            
-            // عرض الإجابة الصحيحة
-            options[correctIndex].classList.add('correct');
-            correctAnswerText.textContent = quizData[currentQuestionIndex].options[correctIndex];
-            correctAnswerMessage.style.display = 'block';
-            
-            setTimeout(nextQuestion, 2000);
+            // الانتقال للسؤال التالي
+            nextBtn.style.display = 'inline-flex';
         }
-
-        // الانتقال للسؤال التالي
-        function nextQuestion() {
+        
+        // اختيار إجابة
+        function selectAnswer(selectedIndex) {
+            // إيقاف المؤقت
+            clearInterval(timer);
+            
+            // منع المزيد من النقرات
+            disableOptions();
+            
+            const correctIndex = questions[currentQuestionIndex].correctAnswer;
+            const correctOption = document.querySelector(`.option[data-index="${correctIndex}"]`);
+            const selectedOption = document.querySelector(`.option[data-index="${selectedIndex}"]`);
+            
+            // تسليط الضوء على الإجابة الصحيحة باللون الأخضر
+            correctOption.classList.add('correct');
+            
+            // إذا كانت الإجابة خاطئة، تلوين الإجابة المختارة باللون الأحمر
+            if (selectedIndex !== correctIndex) {
+                selectedOption.classList.add('wrong');
+            } else {
+                // إذا كانت الإجابة صحيحة، إضافة النقاط
+                score += 10;
+            }
+            
+            questionsAnswered++;
+            
+            // إظهار زر التالي
+            nextBtn.style.display = 'inline-flex';
+        }
+        
+        // تعطيل الخيارات
+        function disableOptions() {
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+        }
+        
+        // التالي
+        nextBtn.addEventListener('click', () => {
             currentQuestionIndex++;
             
-            if (currentQuestionIndex < quizData.length) {
-                gameActive = true;
+            if (currentQuestionIndex < questions.length) {
                 loadQuestion();
-                startTimer();
             } else {
-                showResults();
+                endGame();
             }
-        }
-
-        // عرض النتائج
-        function showResults() {
-            quizScreen.style.display = 'none';
-            resultScreen.style.display = 'block';
+        });
+        
+        // إنهاء اللعبة
+        function endGame() {
+            questionScreen.classList.remove('active');
+            resultScreen.classList.add('active');
             
-            finalScoreEl.textContent = score;
+            // عرض النتيجة النهائية
+            finalScoreElement.textContent = score;
             
-            // تحديد الرسالة بناء على النتيجة
-            let message = '';
-            let emoji = '';
-            
-            if (score === 5) {
-                message = 'مذهل! أنت خبير في الثقافة العربية';
-                emoji = '👑';
-            } else if (score >= 3) {
-                message = 'جيد جداً! معرفتك ممتازة';
-                emoji = '⭐';
-            } else if (score >= 2) {
-                message = 'ليس سيئاً! يمكنك التحسين';
-                emoji = '👍';
+            // عرض رسالة حسب النتيجة
+            let message = "";
+            if (score >= 40) {
+                message = "مذهل! أنت عبقري معلومات عامة!";
+                createFireworks();
+            } else if (score >= 30) {
+                message = "أحسنت! لديك معلومات جيدة جداً.";
+            } else if (score >= 20) {
+                message = "جيد، لكن يمكنك تحسين معلوماتك أكثر.";
             } else {
-                message = 'جرب مرة أخرى لتحسين نتيجتك';
-                emoji = '💪';
+                message = "حاول مرة أخرى وستتحسن بالتأكيد!";
             }
             
-            scoreMessage.textContent = message;
-            scoreEmoji.textContent = emoji;
+            resultMessageElement.textContent = message;
         }
-
-        // مشاركة النتائج
-        function setupShareButtons() {
-            const shareText = `حصلت على ${score}/5 في كويز الثقافة العربية! جرب التحدي بنفسك: `;
-            const shareUrl = window.location.href;
-            
-            shareWhatsApp.addEventListener('click', () => {
-                window.open(`https://wa.me/?text=${encodeURIComponent(shareText + shareUrl)}`, '_blank');
-            });
-            
-            shareFacebook.addEventListener('click', () => {
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`, '_blank');
-            });
-            
-            shareTwitter.addEventListener('click', () => {
-                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, '_blank');
-            });
-        }
-
-        // عرض الإجابات
-        function setupViewAnswers() {
-            viewAnswersBtn.addEventListener('click', () => {
-                let answersText = "الإجابات الصحيحة:\n\n";
-                quizData.forEach((question, index) => {
-                    const userAnswer = userAnswers[index];
-                    const correctAnswer = question.options[question.correct];
-                    const userAnswerText = userAnswer !== -1 ? question.options[userAnswer] : "لم تجب";
-                    
-                    answersText += `${index + 1}. ${question.question}\n`;
-                    answersText += `إجابتك: ${userAnswerText}\n`;
-                    answersText += `الإجابة الصحيحة: ${correctAnswer}\n\n`;
-                });
-                
-                alert(answersText);
-            });
-        }
-
-        // إعادة اللعب
-        playAgainBtn.addEventListener('click', () => {
+        
+        // إعادة اللعبة
+        restartBtn.addEventListener('click', () => {
+            // إعادة تعيين اللعبة
             currentQuestionIndex = 0;
             score = 0;
-            userAnswers = [];
-            startCountdown = 5;
+            questionsAnswered = 0;
             
-            resultScreen.style.display = 'none';
-            startScreen.style.display = 'block';
-            startCountdownEl.textContent = startCountdown;
-            startProgress.style.width = '0%';
-            
-            startInitialCountdown();
+            // العودة إلى شاشة البداية
+            resultScreen.classList.remove('active');
+            startScreen.classList.add('active');
         });
-
-        // تهيئة اللعبة
-        function initGame() {
-            startInitialCountdown();
-            setupShareButtons();
-            setupViewAnswers();
+        
+        // وضع ملء الشاشة
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`خطأ في تفعيل ملء الشاشة: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
         }
-
-        // بدء اللعبة عند تحميل الصفحة
-        window.addEventListener('DOMContentLoaded', initGame);
+        
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+        fullscreenBtn2.addEventListener('click', toggleFullscreen);
+        
+        // تهيئة اللعبة عند تحميل الصفحة
+        window.addEventListener('DOMContentLoaded', () => {
+            initParticles();
+        });
     </script>
 </body>
 </html>
