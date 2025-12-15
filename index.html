@@ -19,6 +19,44 @@
             justify-content: center;
             align-items: center;
             padding: 15px;
+            position: relative;
+        }
+
+        /* شعار الصفحة المتحرك */
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            animation: floatLogo 3s ease-in-out infinite;
+        }
+
+        .logo-link {
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { 
+                transform: translateX(-50%) translateY(0);
+            }
+            50% { 
+                transform: translateX(-50%) translateY(-10px);
+            }
         }
 
         .container {
@@ -29,6 +67,7 @@
             padding: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             position: relative;
+            margin-top: 40px; /* إضافة مسافة للأعلى بسبب الشعار */
         }
 
         .game-title {
@@ -278,9 +317,14 @@
         }
 
         @media (max-width: 600px) {
+            .logo {
+                height: 40px;
+            }
+            
             .container {
                 padding: 15px 10px;
                 max-width: 95%;
+                margin-top: 30px;
             }
 
             .game-title {
@@ -326,13 +370,35 @@
                 padding: 12px;
             }
         }
+
+        @media (max-width: 400px) {
+            .logo {
+                height: 35px;
+            }
+            
+            .logo-container {
+                top: 15px;
+            }
+            
+            .container {
+                margin-top: 25px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- شعار الصفحة المتحرك -->
+    <div class="logo-container">
+        <a href="https://example.com" class="logo-link" target="_blank">
+            <!-- استبدل رابط الصورة بشعارك -->
+            <img src="https://via.placeholder.com/150x50/667eea/ffffff?text=MY+LOGO" alt="My Logo" class="logo">
+        </a>
+    </div>
+
     <div class="container">
         <button class="fullscreen-btn" onclick="toggleFullscreen()">Fullscreen</button>
         
-        <h1 class="game-title">Quzix</h1>
+        <h1 class="game-title">Quizix</h1>
         
         <div class="progress-bar">
             <div class="progress" id="progressBar"></div>
