@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizix - Daily Quiz</title>
+    <title>Quzix - Daily Quiz</title>
     <style>
         * {
             margin: 0;
@@ -35,19 +35,16 @@
         .logo-link {
             display: block;
             text-decoration: none;
-            transition: all 0.3s ease;
+            cursor: default; /* تغيير المؤشر ليكون افتراضي */
+            pointer-events: none; /* تعطيل النقر */
         }
 
         .logo {
-            height: 190px;
+            height: 190px; /* الحجم الكبير الذي طلبته */
             width: auto;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
             transition: all 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.1);
-            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
+            border-radius: 15px;
         }
 
         @keyframes floatLogo {
@@ -55,7 +52,7 @@
                 transform: translateX(-50%) translateY(0);
             }
             50% { 
-                transform: translateX(-50%) translateY(-10px);
+                transform: translateX(-50%) translateY(-15px);
             }
         }
 
@@ -67,7 +64,7 @@
             padding: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             position: relative;
-            margin-top: 40px; /* إضافة مسافة للأعلى بسبب الشعار */
+            margin-top: 180px; /* زيادة المسافة بسبب الشعار الكبير */
         }
 
         .game-title {
@@ -318,13 +315,13 @@
 
         @media (max-width: 600px) {
             .logo {
-                height: 190px;
+                height: 140px; /* تصغير الشعار في الجوال */
             }
             
             .container {
                 padding: 15px 10px;
                 max-width: 95%;
-                margin-top: 30px;
+                margin-top: 140px; /* تعديل المسافة للشعار المصغر */
             }
 
             .game-title {
@@ -373,7 +370,7 @@
 
         @media (max-width: 400px) {
             .logo {
-                height: 35px;
+                height: 120px;
             }
             
             .logo-container {
@@ -381,7 +378,7 @@
             }
             
             .container {
-                margin-top: 25px;
+                margin-top: 120px;
             }
         }
     </style>
@@ -389,16 +386,16 @@
 <body>
     <!-- شعار الصفحة المتحرك -->
     <div class="logo-container">
-        <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHnCYf6rfF-Wmdx_LxDtwdcK19DvYdEWRTGy4uNoc7shOta04ZBoufP2GFvaC65YOugS5uaAz4mRwtOhyphenhyphenvWZfVpHbZXkwGcOeaSm0iVcfWaqq9D8VAPYu1LSSIOyBLvbPJ8XE4MWHzge4I4Kn_bMb7RPvsOJc51z4wrjsKDuMcyA9i5iktUaE6RQEo088/s1600/1000040085.png" class="logo-link" target="_blank">
-            <!-- استبدل رابط الصورة بشعارك -->
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHnCYf6rfF-Wmdx_LxDtwdcK19DvYdEWRTGy4uNoc7shOta04ZBoufP2GFvaC65YOugS5uaAz4mRwtOhyphenhyphenvWZfVpHbZXkwGcOeaSm0iVcfWaqq9D8VAPYu1LSSIOyBLvbPJ8XE4MWHzge4I4Kn_bMb7RPvsOJc51z4wrjsKDuMcyA9i5iktUaE6RQEo088/s1600/1000040085.png" alt="My Logo" class="logo">
+        <a class="logo-link" onclick="return false;"> <!-- تعطيل النقر -->
+            <!-- رابط الصورة الذي أرسلته -->
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHnCYf6rfF-Wmdx_LxDtwdcK19DvYdEWRTGy4uNoc7shOta04ZBoufP2GFvaC65YOugS5uaAz4mRwtOhyphenhyphenvWZfVpHbZXkwGcOeaSm0iVcfWaqq9D8VAPYu1LSSIOyBLvbPJ8XE4MWHzge4I4Kn_bMb7RPvsOJc51z4wrjsKDuMcyA9i5iktUaE6RQEo088/s1600/1000040085.png" alt="Quizix Logo" class="logo">
         </a>
     </div>
 
     <div class="container">
         <button class="fullscreen-btn" onclick="toggleFullscreen()">Fullscreen</button>
         
-        <h1 class="game-title">Quzix</h1>
+        <h1 class="game-title">Quzix - Daily Quiz</h1>
         
         <div class="progress-bar">
             <div class="progress" id="progressBar"></div>
@@ -408,7 +405,7 @@
         <div class="welcome-screen" id="welcomeScreen">
             <div class="welcome-message">Today's 5 Questions Challenge!</div>
             <div class="daily-topic" id="dailyTopic">Topic: Mixed Questions</div>
-            <div class="countdown" id="welcomeCountdown">3</div>
+            <div class="countdown" id="welcomeCountdown">7</div>
         </div>
 
         <!-- Question Screen -->
@@ -494,7 +491,7 @@
         let timeLeft = 10;
 
         function startWelcomeCountdown() {
-            let countdown = 3;
+            let countdown = 7; // تغيير من 3 إلى 7 ثواني
             const countdownEl = document.getElementById('welcomeCountdown');
             
             const countdownInterval = setInterval(() => {
