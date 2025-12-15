@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خمنها صح</title>
+    <title>Quizix - Daily Quiz</title>
     <style>
         * {
             margin: 0;
@@ -18,46 +18,63 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
+            padding: 15px;
         }
 
         .container {
             width: 90%;
-            max-width: 900px;
+            max-width: 600px;
             background: white;
-            border-radius: 25px;
-            padding: 50px;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 18px 40px rgba(0,0,0,0.25);
             position: relative;
         }
 
         .game-title {
             text-align: center;
-            font-size: 3.5em;
+            font-size: 2.4em;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 13px;
+            margin-bottom: 12px;
             font-weight: 900;
             animation: titleFloat 3s ease-in-out infinite;
-            letter-spacing: 2px;
         }
 
         @keyframes titleFloat {
             0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-8px) scale(1.02); }
+            50% { transform: translateY(-4px) scale(1.01); }
         }
 
-        .welcome-screen {
+        .daily-topic {
             text-align: center;
-            animation: fadeInScale 0.6s ease-out;
+            font-size: 1em;
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-weight: 600;
+            padding: 6px;
+            background: rgba(118, 75, 162, 0.1);
+            border-radius: 8px;
+        }
+
+        .date-display {
+            text-align: center;
+            font-size: 0.9em;
+            color: #667eea;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .welcome-screen, .question-container, .end-screen {
+            animation: fadeInScale 0.5s ease-out;
         }
 
         @keyframes fadeInScale {
             from { 
                 opacity: 0;
-                transform: scale(0.9);
+                transform: scale(0.96);
             }
             to { 
                 opacity: 1;
@@ -65,21 +82,25 @@
             }
         }
 
+        .welcome-screen {
+            text-align: center;
+        }
+
         .welcome-message {
-            font-size: 2.5em;
+            font-size: 1.6em;
             color: #2c3e50;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             font-weight: 700;
         }
 
         .countdown {
-            font-size: 6em;
+            font-size: 3.8em;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: 900;
-            margin: 40px 0;
+            margin: 20px 0;
             animation: countdownPulse 1s infinite;
         }
 
@@ -89,20 +110,20 @@
                 opacity: 1;
             }
             50% { 
-                transform: scale(1.3);
+                transform: scale(1.15);
                 opacity: 0.8;
             }
         }
 
         .question-container {
             display: none;
-            animation: slideIn 0.5s ease-out;
+            animation: slideIn 0.4s ease-out;
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateX(-30px);
+                transform: translateX(-15px);
             }
             to {
                 opacity: 1;
@@ -114,271 +135,348 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            padding: 20px;
+            margin-bottom: 12px;
+            padding: 12px;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 15px;
+            border-radius: 10px;
         }
 
         .question-number {
-            font-size: 1.4em;
+            font-size: 1em;
             color: #667eea;
             font-weight: 800;
         }
 
         .timer {
-            font-size: 2.5em;
+            font-size: 1.7em;
             color: #fff;
             font-weight: 900;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            padding: 12px 28px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.3);
+            padding: 6px 14px;
+            border-radius: 10px;
+            box-shadow: 0 5px 12px rgba(245, 87, 108, 0.3);
         }
 
         .question-text {
-            font-size: 1.8em;
+            font-size: 1.4em;
             color: #2c3e50;
-            margin-bottom: 40px;
+            margin-bottom: 18px;
             text-align: center;
             font-weight: 600;
-            line-height: 1.5;
+            line-height: 1.3;
+        }
+
+        .question-image {
+            width: 100%;
+            max-height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
 
         .answers {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
         .answer-btn {
-            padding: 25px;
-            font-size: 1.3em;
+            padding: 14px;
+            font-size: 1em;
             border: none;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-radius: 18px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.25s;
             font-weight: 600;
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .answer-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: left 0.4s;
-        }
-
-        .answer-btn:hover::before {
-            left: 100%;
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.25);
         }
 
         .answer-btn:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.35);
         }
 
         .answer-btn.correct {
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            box-shadow: 0 10px 30px rgba(56, 239, 125, 0.4);
-            animation: correctShake 0.5s;
+            box-shadow: 0 6px 15px rgba(56, 239, 125, 0.35);
+            animation: correctShake 0.4s;
         }
 
         @keyframes correctShake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px) scale(1.05); }
-            75% { transform: translateX(5px) scale(1.05); }
+            25% { transform: translateX(-4px) scale(1.03); }
+            75% { transform: translateX(4px) scale(1.03); }
         }
 
         .answer-btn.wrong {
             background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
-            box-shadow: 0 10px 30px rgba(238, 9, 121, 0.4);
-            animation: wrongShake 0.5s;
+            box-shadow: 0 6px 15px rgba(238, 9, 121, 0.35);
+            animation: wrongShake 0.4s;
         }
 
         @keyframes wrongShake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
         }
 
         .answer-btn:disabled {
             cursor: not-allowed;
+            opacity: 0.8;
         }
 
         .end-screen {
             display: none;
             text-align: center;
-            animation: fadeInScale 0.6s ease-out;
+            padding: 15px 0;
         }
 
         .end-message {
-            font-size: 2em;
+            font-size: 1.5em;
             color: #2c3e50;
-            margin-bottom: 50px;
-            line-height: 1.8;
+            margin-bottom: 18px;
+            line-height: 1.5;
             font-weight: 600;
         }
 
-        .restart-btn {
-            padding: 20px 50px;
-            font-size: 1.5em;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            font-weight: 700;
-            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+        .score-display {
+            font-size: 2em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            margin: 15px 0;
         }
 
-        .restart-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 18px 40px rgba(102, 126, 234, 0.6);
+        .final-question {
+            font-size: 1.2em;
+            color: #667eea;
+            margin: 20px 0;
+            padding: 12px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .share-message {
+            font-size: 1em;
+            color: #764ba2;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(118, 75, 162, 0.1);
+            border-radius: 10px;
+            font-weight: 500;
         }
 
         .fullscreen-btn {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            padding: 6px 10px;
+            top: 12px;
+            left: 12px;
+            padding: 5px 10px;
             background: rgba(102, 126, 234, 0.9);
             color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-size: 0.75em;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.25s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
         }
 
         .fullscreen-btn:hover {
             background: rgba(118, 75, 162, 0.9);
-            transform: scale(1.08);
+            transform: scale(1.04);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin: 15px 0 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
         @media (max-width: 600px) {
             .container {
-                padding: 30px 20px;
+                padding: 20px 12px;
+                max-width: 95%;
             }
 
             .game-title {
-                font-size: 2.2em;
+                font-size: 2em;
             }
 
             .welcome-message {
-                font-size: 1.8em;
+                font-size: 1.4em;
             }
 
             .countdown {
-                font-size: 4em;
+                font-size: 3em;
             }
 
             .question-text {
-                font-size: 1.4em;
+                font-size: 1.2em;
             }
 
             .answers {
                 grid-template-columns: 1fr;
+                gap: 10px;
             }
 
             .answer-btn {
-                padding: 20px;
-                font-size: 1.1em;
+                padding: 12px;
+                font-size: 0.95em;
             }
 
             .fullscreen-btn {
-                top: 10px;
-                left: 10px;
-                padding: 5px 8px;
+                top: 8px;
+                left: 8px;
+                padding: 4px 8px;
                 font-size: 0.7em;
             }
 
             .timer {
-                font-size: 2em;
-                padding: 10px 20px;
+                font-size: 1.5em;
+                padding: 5px 12px;
             }
 
             .question-number {
+                font-size: 0.9em;
+            }
+
+            .question-image {
+                max-height: 150px;
+            }
+
+            .end-message {
+                font-size: 1.3em;
+            }
+
+            .final-question {
                 font-size: 1.1em;
+            }
+
+            .score-display {
+                font-size: 1.8em;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <button class="fullscreen-btn" onclick="toggleFullscreen()">شاشة كاملة</button>
+        <button class="fullscreen-btn" onclick="toggleFullscreen()">Fullscreen</button>
         
-        <h1 class="game-title">خمنها صح</h1>
-
-        <div class="welcome-screen" id="welcomeScreen">
-            <div class="welcome-message">ركز جيداً</div>
-            <div class="countdown" id="welcomeCountdown">5</div>
+        <h1 class="game-title">Quizix</h1>
+        <div class="date-display" id="dateDisplay"></div>
+        <div class="daily-topic" id="dailyTopic">Today's Topic: Mixed</div>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
         </div>
 
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="welcome-message">Today's 5 Questions Challenge!</div>
+            <div class="countdown" id="welcomeCountdown">3</div>
+        </div>
+
+        <!-- Question Screen -->
         <div class="question-container" id="questionContainer">
             <div class="question-header">
-                <div class="question-number" id="questionNumber">السؤال 1 من 5</div>
+                <div class="question-number" id="questionNumber">Question 1/5</div>
                 <div class="timer" id="timer">10</div>
             </div>
             <div class="question-text" id="questionText"></div>
+            <img class="question-image" id="questionImage" src="" alt="Question Image">
             <div class="answers" id="answersContainer"></div>
         </div>
 
+        <!-- End Screen -->
         <div class="end-screen" id="endScreen">
             <div class="end-message">
-                شاركنا كم جمعت من نقاط<br>
-                في خانة التعليقات
+                Share how many points you got<br>
+                in the comments!
             </div>
-            <button class="restart-btn" onclick="restartGame()">العب مرة أخرى</button>
+            <div class="score-display" id="scoreDisplay">Score: 0/5</div>
+            <div class="final-question" id="finalQuestion">
+                How many did you get right?<br>
+                Answer in the comments!
+            </div>
+            <div class="share-message">
+                Come back tomorrow for new questions!
+            </div>
         </div>
     </div>
 
     <script>
-        const questions = [
+        // أسئلة اليوم (5 أسئلة متنوعة)
+        const dailyQuestions = [
             {
-                question: "ما هي عاصمة فرنسا؟",
-                answers: ["باريس", "لندن", "برلين", "روما"],
+                topic: "Geography",
+                question: "What is the capital of France?",
+                image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                answers: ["Paris", "London", "Berlin", "Rome"],
                 correct: 0
             },
             {
-                question: "كم عدد قارات العالم؟",
-                answers: ["5", "6", "7", "8"],
+                topic: "Science",
+                question: "What is the largest planet in our solar system?",
+                image: "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                answers: ["Earth", "Saturn", "Jupiter", "Neptune"],
                 correct: 2
             },
             {
-                question: "ما هو أكبر كوكب في المجموعة الشمسية؟",
-                answers: ["الأرض", "المشتري", "زحل", "المريخ"],
-                correct: 1
+                topic: "History",
+                question: "Who painted the Mona Lisa?",
+                image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                answers: ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
+                correct: 2
             },
             {
-                question: "في أي سنة بدأت الحرب العالمية الثانية؟",
-                answers: ["1935", "1939", "1941", "1945"],
-                correct: 1
+                topic: "Technology",
+                question: "Which company created the iPhone?",
+                image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                answers: ["Samsung", "Google", "Apple", "Microsoft"],
+                correct: 2
             },
             {
-                question: "ما هو أطول نهر في العالم؟",
-                answers: ["النيل", "الأمازون", "الفرات", "المسيسيبي"],
-                correct: 0
+                topic: "Sports",
+                question: "How many players are on a soccer team?",
+                image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                answers: ["9", "10", "11", "12"],
+                correct: 2
             }
         ];
 
         let currentQuestion = 0;
+        let score = 0;
         let timer;
         let timeLeft = 10;
 
+        // عرض التاريخ الحالي
+        const today = new Date();
+        const dateStr = today.toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        document.getElementById('dateDisplay').textContent = dateStr;
+
         function startWelcomeCountdown() {
-            let countdown = 5;
+            let countdown = 3;
             const countdownEl = document.getElementById('welcomeCountdown');
             
             const countdownInterval = setInterval(() => {
@@ -394,15 +492,24 @@
             }, 1000);
         }
 
+        function updateProgressBar() {
+            const progress = ((currentQuestion) / dailyQuestions.length) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
         function loadQuestion() {
-            if (currentQuestion >= questions.length) {
+            updateProgressBar();
+            
+            if (currentQuestion >= dailyQuestions.length) {
                 endGame();
                 return;
             }
 
-            const q = questions[currentQuestion];
-            document.getElementById('questionNumber').textContent = `السؤال ${currentQuestion + 1} من ${questions.length}`;
+            const q = dailyQuestions[currentQuestion];
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1}/5`;
             document.getElementById('questionText').textContent = q.question;
+            document.getElementById('questionImage').src = q.image;
+            document.getElementById('questionImage').alt = `Image for question ${currentQuestion + 1}`;
             
             const answersContainer = document.getElementById('answersContainer');
             answersContainer.innerHTML = '';
@@ -432,7 +539,7 @@
                     setTimeout(() => {
                         currentQuestion++;
                         loadQuestion();
-                    }, 2000);
+                    }, 1500);
                 }
             }, 1000);
         }
@@ -440,12 +547,13 @@
         function selectAnswer(index) {
             clearInterval(timer);
             const buttons = document.querySelectorAll('.answer-btn');
-            const correct = questions[currentQuestion].correct;
+            const correct = dailyQuestions[currentQuestion].correct;
             
             buttons.forEach(btn => btn.disabled = true);
             
             if (index === correct) {
                 buttons[index].classList.add('correct');
+                score++;
             } else {
                 buttons[index].classList.add('wrong');
                 buttons[correct].classList.add('correct');
@@ -454,12 +562,12 @@
             setTimeout(() => {
                 currentQuestion++;
                 loadQuestion();
-            }, 2000);
+            }, 1500);
         }
 
         function showCorrectAnswer() {
             const buttons = document.querySelectorAll('.answer-btn');
-            const correct = questions[currentQuestion].correct;
+            const correct = dailyQuestions[currentQuestion].correct;
             buttons.forEach(btn => btn.disabled = true);
             buttons[correct].classList.add('correct');
         }
@@ -467,14 +575,21 @@
         function endGame() {
             document.getElementById('questionContainer').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';
-        }
-
-        function restartGame() {
-            currentQuestion = 0;
-            document.getElementById('endScreen').style.display = 'none';
-            document.getElementById('welcomeScreen').style.display = 'block';
-            document.getElementById('welcomeCountdown').textContent = '5';
-            startWelcomeCountdown();
+            
+            document.getElementById('scoreDisplay').textContent = `Score: ${score}/5`;
+            
+            // تحديث السؤال النهائي بناءً على النتيجة
+            const finalQuestion = document.getElementById('finalQuestion');
+            if (score === 5) {
+                finalQuestion.innerHTML = `Perfect score! 🎉<br>Which question was hardest for you?`;
+            } else if (score >= 3) {
+                finalQuestion.innerHTML = `Good job! 👍<br>Share your score in the comments!`;
+            } else {
+                finalQuestion.innerHTML = `Keep learning! 💪<br>How many did you get right?`;
+            }
+            
+            // تحديث شريط التقدم إلى 100%
+            document.getElementById('progressBar').style.width = `100%`;
         }
 
         function toggleFullscreen() {
@@ -485,6 +600,7 @@
             }
         }
 
+        // بدء اللعبة تلقائياً عند تحميل الصفحة
         window.onload = () => {
             startWelcomeCountdown();
         };
