@@ -292,43 +292,104 @@
         }
 
         .end-message {
-            font-size: 1.4em;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            line-height: 1.4;
-            font-weight: 600;
-        }
-
-        .score-display {
-            font-size: 2.5em;
+            font-size: 1.8em;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 20px;
+            line-height: 1.4;
             font-weight: 900;
-            margin: 15px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: rgba(102, 126, 234, 0.05);
+        }
+
+        .exclusive-section {
+            margin: 25px 0;
+            padding: 20px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
+            position: relative;
+            border: 3px solid transparent;
+            animation: borderGlow 3s infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        @keyframes borderGlow {
+            0%, 100% {
+                border-color: rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                border-color: rgba(118, 75, 162, 0.6);
+            }
+        }
+
+        .exclusive-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .exclusive-title {
+            font-size: 1.3em;
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .exclusive-question {
             font-size: 1.2em;
-            color: #667eea;
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 10px;
+            color: #2c3e50;
+            line-height: 1.6;
             font-weight: 600;
-            line-height: 1.5;
-            border: 2px dashed #667eea;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .exclusive-instruction {
+            font-size: 1em;
+            color: #667eea;
+            margin-top: 15px;
+            font-weight: 600;
+            font-style: italic;
         }
 
         .share-message {
-            font-size: 0.95em;
+            font-size: 1em;
             color: #764ba2;
-            margin-top: 15px;
-            padding: 8px;
+            margin-top: 25px;
+            padding: 15px;
             background: rgba(118, 75, 162, 0.1);
-            border-radius: 8px;
-            font-weight: 500;
+            border-radius: 10px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .tomorrow-teaser {
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin: 20px 0;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(56, 239, 125, 0.1), rgba(102, 126, 234, 0.1));
+            border-radius: 10px;
+            font-weight: 700;
+            border: 2px dashed #38ef7d;
         }
 
         .fullscreen-btn {
@@ -410,16 +471,26 @@
             }
 
             .end-message {
-                font-size: 1.2em;
+                font-size: 1.5em;
+            }
+
+            .exclusive-section {
+                padding: 15px;
+                margin: 20px 0;
+            }
+
+            .exclusive-title {
+                font-size: 1.1em;
             }
 
             .exclusive-question {
-                font-size: 1.1em;
+                font-size: 1em;
                 padding: 12px;
             }
 
-            .score-display {
-                font-size: 2em;
+            .share-message {
+                font-size: 0.9em;
+                padding: 12px;
             }
         }
 
@@ -477,16 +548,27 @@
         <!-- End Screen -->
         <div class="end-screen" id="endScreen">
             <div class="end-message">
-                Quiz Completed!
+                Congratulations!<br>You've completed today's challenge!
             </div>
-            <div class="score-display" id="scoreDisplay">Score: 0/6</div>
-            <div class="exclusive-question" id="exclusiveQuestion">
-                If you could add one new question to tomorrow's Quizix,<br>
-                what would it be and why?
+            
+            <div class="exclusive-section">
+                <div class="exclusive-badge">EXCLUSIVE</div>
+                <div class="exclusive-title">Your Special Question</div>
+                <div class="exclusive-question" id="exclusiveQuestion">
+                    <!-- سيتم ملؤه بالجافا سكريبت -->
+                </div>
+                <div class="exclusive-instruction">
+                    Share your thoughts in the comments below!
+                </div>
             </div>
+            
+            <div class="tomorrow-teaser">
+                🎯 New questions coming tomorrow!
+            </div>
+            
             <div class="share-message">
-                Share your score and answer the exclusive question in the comments!<br>
-                Come back tomorrow for new questions!
+                Don't forget to share your thoughts about the exclusive question!<br>
+                See you tomorrow for another exciting challenge!
             </div>
         </div>
     </div>
@@ -538,13 +620,16 @@
             }
         ];
 
-        // أسئلة حصرية مختلفة حسب النتيجة
+        // أسئلة حصرية مختلفة
         const exclusiveQuestions = [
             "If you could add one new question to tomorrow's Quizix, what would it be and why?",
             "Which of today's questions was the most challenging for you and why?",
-            "What topic would you like to see more of in future Quizix questions?",
-            "If you could create a perfect quiz question, what would it be about?",
-            "What's one fact you learned today that surprised you the most?"
+            "What topic would you like to see more of in future Quizix challenges?",
+            "If you could create the perfect quiz question, what would it be about?",
+            "What's one fact you learned today that surprised you the most?",
+            "If you could ask an expert any question related to today's topics, what would you ask?",
+            "Which question made you think the most and what was your thought process?",
+            "If you had to teach someone about one topic from today's quiz, which would it be and why?"
         ];
 
         let currentQuestion = 0;
@@ -602,7 +687,6 @@
             const answersContainer = document.getElementById('answersContainer');
             answersContainer.innerHTML = '';
             
-            // حروف الخيارات
             const optionLetters = ['A', 'B', 'C'];
             
             q.answers.forEach((answer, index) => {
@@ -677,12 +761,9 @@
             document.getElementById('questionContainer').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';
             
-            // عرض النتيجة
-            document.getElementById('scoreDisplay').textContent = `Score: ${score}/6`;
-            
             // اختيار سؤال حصري عشوائي
             const randomIndex = Math.floor(Math.random() * exclusiveQuestions.length);
-            document.getElementById('exclusiveQuestion').innerHTML = exclusiveQuestions[randomIndex];
+            document.getElementById('exclusiveQuestion').textContent = exclusiveQuestions[randomIndex];
             
             // تحديث شريط التقدم إلى 100%
             document.getElementById('progressBar').style.width = `100%`;
