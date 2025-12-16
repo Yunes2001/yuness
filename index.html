@@ -20,9 +20,10 @@
             align-items: center;
             padding: 15px;
             position: relative;
+            cursor: pointer;
         }
 
-        /* شعار الصفحة المتحرك */
+        /* شعار الصفحة المتحرك - حجم أكبر */
         .logo-container {
             position: absolute;
             top: 20px;
@@ -32,15 +33,8 @@
             animation: floatLogo 3s ease-in-out infinite;
         }
 
-        .logo-link {
-            display: block;
-            text-decoration: none;
-            cursor: default; /* تغيير المؤشر ليكون افتراضي */
-            pointer-events: none; /* تعطيل النقر */
-        }
-
         .logo {
-            height: 220px; /* الحجم الكبير الذي طلبته */
+            height: 260px; /* حجم أكبر من السابق (كان 220px) */
             width: auto;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
             transition: all 0.3s ease;
@@ -58,13 +52,14 @@
 
         .container {
             width: 90%;
-            max-width: 550px;
+            max-width: 600px;
             background: white;
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             position: relative;
-            margin-top: 180px; /* زيادة المسافة بسبب الشعار الكبير */
+            margin-top: 220px; /* تعديل المارجن ليتناسب مع حجم الشعار الأكبر */
+            cursor: default;
         }
 
         .game-title {
@@ -95,6 +90,7 @@
 
         .welcome-screen {
             text-align: center;
+            padding: 10px;
         }
 
         .welcome-message {
@@ -112,6 +108,30 @@
             padding: 8px;
             background: rgba(118, 75, 162, 0.1);
             border-radius: 8px;
+        }
+
+        .start-instruction {
+            font-size: 1.1em;
+            color: #667eea;
+            margin: 25px 0;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            font-weight: 600;
+            line-height: 1.5;
+            border: 2px dashed #667eea;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
         }
 
         .countdown {
@@ -189,59 +209,80 @@
             max-height: 160px;
             object-fit: cover;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .answers {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
             margin-bottom: 10px;
         }
 
-        .answer-btn {
+        .answer-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
             padding: 12px;
-            font-size: 0.95em;
-            border: none;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: white;
+            border: 2px solid #e0e0e0;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .answer-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .answer-letter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 800;
+            border-radius: 8px;
+            font-size: 1.1em;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .answer-text {
+            flex-grow: 1;
+            font-size: 0.95em;
             font-weight: 600;
+            color: #333;
         }
 
-        .answer-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        .answer-option.correct {
+            border-color: #38ef7d;
+            background-color: rgba(56, 239, 125, 0.1);
         }
 
-        .answer-btn.correct {
+        .answer-option.correct .answer-letter {
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            animation: correctShake 0.3s;
         }
 
-        @keyframes correctShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-3px); }
-            75% { transform: translateX(3px); }
+        .answer-option.wrong {
+            border-color: #ff6a00;
+            background-color: rgba(255, 106, 0, 0.1);
         }
 
-        .answer-btn.wrong {
+        .answer-option.wrong .answer-letter {
             background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
-            animation: wrongShake 0.3s;
         }
 
-        @keyframes wrongShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-3px); }
-            75% { transform: translateX(3px); }
-        }
-
-        .answer-btn:disabled {
+        .answer-option:disabled {
             cursor: not-allowed;
-            opacity: 0.8;
+            opacity: 0.7;
         }
 
         .end-screen {
@@ -315,13 +356,13 @@
 
         @media (max-width: 600px) {
             .logo {
-                height: 140px; /* تصغير الشعار في الجوال */
+                height: 180px; /* حجم أكبر للجوال */
             }
             
             .container {
                 padding: 15px 10px;
                 max-width: 95%;
-                margin-top: 140px; /* تعديل المسافة للشعار المصغر */
+                margin-top: 180px; /* تعديل للجوال */
             }
 
             .game-title {
@@ -340,14 +381,14 @@
                 font-size: 1.1em;
             }
 
-            .answers {
-                grid-template-columns: 1fr;
-                gap: 8px;
+            .answer-option {
+                padding: 10px;
             }
 
-            .answer-btn {
-                padding: 10px;
-                font-size: 0.9em;
+            .answer-letter {
+                width: 32px;
+                height: 32px;
+                font-size: 1em;
             }
 
             .question-image {
@@ -370,7 +411,7 @@
 
         @media (max-width: 400px) {
             .logo {
-                height: 120px;
+                height: 160px; /* حجم أكبر للشاشات الصغيرة */
             }
             
             .logo-container {
@@ -378,18 +419,15 @@
             }
             
             .container {
-                margin-top: 120px;
+                margin-top: 160px; /* تعديل للشاشات الصغيرة */
             }
         }
     </style>
 </head>
 <body>
-    <!-- شعار الصفحة المتحرك -->
+    <!-- شعار الصفحة المتحرك بحجم أكبر -->
     <div class="logo-container">
-        <a class="logo-link" onclick="return false;"> <!-- تعطيل النقر -->
-            <!-- رابط الصورة الذي أرسلته -->
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHnCYf6rfF-Wmdx_LxDtwdcK19DvYdEWRTGy4uNoc7shOta04ZBoufP2GFvaC65YOugS5uaAz4mRwtOhyphenhyphenvWZfVpHbZXkwGcOeaSm0iVcfWaqq9D8VAPYu1LSSIOyBLvbPJ8XE4MWHzge4I4Kn_bMb7RPvsOJc51z4wrjsKDuMcyA9i5iktUaE6RQEo088/s1600/1000040085.png" alt="Quizix Logo" class="logo">
-        </a>
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHnCYf6rfF-Wmdx_LxDtwdcK19DvYdEWRTGy4uNoc7shOta04ZBoufP2GFvaC65YOugS5uaAz4mRwtOhyphenhyphenvWZfVpHbZXkwGcOeaSm0iVcfWaqq9D8VAPYu1LSSIOyBLvbPJ8XE4MWHzge4I4Kn_bMb7RPvsOJc51z4wrjsKDuMcyA9i5iktUaE6RQEo088/s1600/1000040085.png" alt="Quizix Logo" class="logo">
     </div>
 
     <div class="container">
@@ -403,15 +441,18 @@
 
         <!-- Welcome Screen -->
         <div class="welcome-screen" id="welcomeScreen">
-            <div class="welcome-message">Today's 5 Questions Challenge!</div>
+            <div class="welcome-message">Today's 6 Questions Challenge!</div>
             <div class="daily-topic" id="dailyTopic">Topic: Mixed Questions</div>
-            <div class="countdown" id="welcomeCountdown">7</div>
+            <div class="start-instruction" id="startInstruction">
+                Click anywhere to start the quiz!
+            </div>
+            <div class="countdown" id="welcomeCountdown" style="display: none;">7</div>
         </div>
 
         <!-- Question Screen -->
         <div class="question-container" id="questionContainer">
             <div class="question-header">
-                <div class="question-number" id="questionNumber">Question 1/5</div>
+                <div class="question-number" id="questionNumber">Question 1/6</div>
                 <div class="timer" id="timer">10</div>
             </div>
             <div class="question-text" id="questionText"></div>
@@ -422,57 +463,63 @@
         <!-- End Screen -->
         <div class="end-screen" id="endScreen">
             <div class="end-message">
-                Share how many points you got<br>
-                in the comments!
+                Quiz Completed!
             </div>
             <div class="exclusive-question" id="exclusiveQuestion">
                 If you could add one new question to tomorrow's Quizix,<br>
                 what would it be and why?
             </div>
             <div class="share-message">
-                Answer the exclusive question in the comments!<br>
+                Share your answer to the exclusive question in the comments!<br>
                 Come back tomorrow for new questions!
             </div>
         </div>
     </div>
 
     <script>
-        // أسئلة اليوم (5 أسئلة متنوعة)
+        // أسئلة اليوم (6 أسئلة متنوعة)
         const dailyQuestions = [
             {
                 topic: "Geography",
                 question: "What is the capital of France?",
                 image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                answers: ["Paris", "London", "Berlin", "Rome"],
+                answers: ["Paris", "London", "Berlin"],
                 correct: 0
             },
             {
                 topic: "Science",
                 question: "What is the largest planet in our solar system?",
                 image: "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                answers: ["Earth", "Saturn", "Jupiter", "Neptune"],
-                correct: 2
+                answers: ["Saturn", "Jupiter", "Neptune"],
+                correct: 1
             },
             {
                 topic: "History",
                 question: "Who painted the Mona Lisa?",
                 image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                answers: ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
-                correct: 2
+                answers: ["Vincent van Gogh", "Leonardo da Vinci", "Michelangelo"],
+                correct: 1
             },
             {
                 topic: "Technology",
                 question: "Which company created the iPhone?",
                 image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                answers: ["Samsung", "Google", "Apple", "Microsoft"],
-                correct: 2
+                answers: ["Samsung", "Apple", "Google"],
+                correct: 1
             },
             {
                 topic: "Sports",
                 question: "How many players are on a soccer team?",
                 image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                answers: ["9", "10", "11", "12"],
-                correct: 2
+                answers: ["9", "11", "12"],
+                correct: 1
+            },
+            {
+                topic: "Music",
+                question: "Which instrument has 88 keys?",
+                image: "https://images.unsplash.com/photo-1571974599782-87624638275c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                answers: ["Guitar", "Piano", "Organ"],
+                correct: 1
             }
         ];
 
@@ -489,9 +536,20 @@
         let score = 0;
         let timer;
         let timeLeft = 10;
+        let gameStarted = false;
+
+        function startGame() {
+            if (gameStarted) return;
+            
+            gameStarted = true;
+            document.getElementById('startInstruction').style.display = 'none';
+            document.getElementById('welcomeCountdown').style.display = 'block';
+            
+            startWelcomeCountdown();
+        }
 
         function startWelcomeCountdown() {
-            let countdown = 7; // تغيير من 3 إلى 7 ثواني
+            let countdown = 7;
             const countdownEl = document.getElementById('welcomeCountdown');
             
             const countdownInterval = setInterval(() => {
@@ -521,7 +579,7 @@
             }
 
             const q = dailyQuestions[currentQuestion];
-            document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1}/5`;
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1}/6`;
             document.getElementById('questionText').textContent = q.question;
             document.getElementById('questionImage').src = q.image;
             document.getElementById('questionImage').alt = `Image for question ${currentQuestion + 1}`;
@@ -529,12 +587,25 @@
             const answersContainer = document.getElementById('answersContainer');
             answersContainer.innerHTML = '';
             
+            // حروف الخيارات
+            const optionLetters = ['A', 'B', 'C'];
+            
             q.answers.forEach((answer, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'answer-btn';
-                btn.textContent = answer;
-                btn.onclick = () => selectAnswer(index);
-                answersContainer.appendChild(btn);
+                const option = document.createElement('div');
+                option.className = 'answer-option';
+                option.onclick = () => selectAnswer(index);
+                
+                const letter = document.createElement('div');
+                letter.className = 'answer-letter';
+                letter.textContent = optionLetters[index];
+                
+                const text = document.createElement('div');
+                text.className = 'answer-text';
+                text.textContent = answer;
+                
+                option.appendChild(letter);
+                option.appendChild(text);
+                answersContainer.appendChild(option);
             });
 
             startTimer();
@@ -561,17 +632,17 @@
 
         function selectAnswer(index) {
             clearInterval(timer);
-            const buttons = document.querySelectorAll('.answer-btn');
+            const options = document.querySelectorAll('.answer-option');
             const correct = dailyQuestions[currentQuestion].correct;
             
-            buttons.forEach(btn => btn.disabled = true);
+            options.forEach(option => option.style.pointerEvents = 'none');
             
             if (index === correct) {
-                buttons[index].classList.add('correct');
+                options[index].classList.add('correct');
                 score++;
             } else {
-                buttons[index].classList.add('wrong');
-                buttons[correct].classList.add('correct');
+                options[index].classList.add('wrong');
+                options[correct].classList.add('correct');
             }
 
             setTimeout(() => {
@@ -581,10 +652,10 @@
         }
 
         function showCorrectAnswer() {
-            const buttons = document.querySelectorAll('.answer-btn');
+            const options = document.querySelectorAll('.answer-option');
             const correct = dailyQuestions[currentQuestion].correct;
-            buttons.forEach(btn => btn.disabled = true);
-            buttons[correct].classList.add('correct');
+            options.forEach(option => option.style.pointerEvents = 'none');
+            options[correct].classList.add('correct');
         }
 
         function endGame() {
@@ -607,9 +678,16 @@
             }
         }
 
-        // بدء اللعبة تلقائياً عند تحميل الصفحة
+        // بدء اللعبة بالنقر على أي مكان في الصفحة
+        document.body.addEventListener('click', function() {
+            if (!gameStarted) {
+                startGame();
+            }
+        });
+
+        // بدء اللعبة عند تحميل الصفحة
         window.onload = () => {
-            startWelcomeCountdown();
+            // لا تبدأ اللعبة تلقائياً، انتظار النقر
         };
     </script>
 </body>
