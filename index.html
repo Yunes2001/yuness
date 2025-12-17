@@ -23,7 +23,6 @@
             cursor: pointer;
         }
 
-        /* شعار الصفحة المتحرك */
         .logo-container {
             position: absolute;
             top: 20px;
@@ -288,41 +287,17 @@
         .end-screen {
             display: none;
             text-align: center;
-            padding: 15px 0;
-        }
-
-        .end-message {
-            font-size: 1.8em;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            line-height: 1.4;
-            font-weight: 900;
-            padding: 15px;
-            border-radius: 10px;
-            background-color: rgba(102, 126, 234, 0.05);
+            padding: 20px 0;
         }
 
         .exclusive-section {
-            margin: 25px 0;
-            padding: 20px;
+            margin: 20px 0;
+            padding: 25px 20px;
             border-radius: 15px;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
             position: relative;
-            border: 3px solid transparent;
-            animation: borderGlow 3s infinite;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        @keyframes borderGlow {
-            0%, 100% {
-                border-color: rgba(102, 126, 234, 0.3);
-            }
-            50% {
-                border-color: rgba(118, 75, 162, 0.6);
-            }
+            border: 3px solid #667eea;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
         }
 
         .exclusive-badge {
@@ -337,59 +312,25 @@
             font-weight: 800;
             font-size: 0.9em;
             letter-spacing: 1px;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        .exclusive-title {
-            font-size: 1.3em;
-            color: #764ba2;
-            margin-bottom: 15px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .exclusive-question {
-            font-size: 1.2em;
+            font-size: 1.3em;
             color: #2c3e50;
-            line-height: 1.6;
+            line-height: 1.5;
             font-weight: 600;
-            margin: 15px 0;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-            border-left: 5px solid #667eea;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
-
-        .exclusive-instruction {
-            font-size: 1em;
-            color: #667eea;
-            margin-top: 15px;
-            font-weight: 600;
-            font-style: italic;
+            margin: 20px 0;
+            padding: 0 10px;
         }
 
         .share-message {
-            font-size: 1em;
+            font-size: 1.1em;
             color: #764ba2;
             margin-top: 25px;
-            padding: 15px;
+            font-weight: 700;
+            padding: 12px;
             background: rgba(118, 75, 162, 0.1);
             border-radius: 10px;
-            font-weight: 600;
-            line-height: 1.5;
-        }
-
-        .tomorrow-teaser {
-            font-size: 1.1em;
-            color: #2c3e50;
-            margin: 20px 0;
-            padding: 12px;
-            background: linear-gradient(135deg, rgba(56, 239, 125, 0.1), rgba(102, 126, 234, 0.1));
-            border-radius: 10px;
-            font-weight: 700;
-            border: 2px dashed #38ef7d;
         }
 
         .fullscreen-btn {
@@ -470,27 +411,19 @@
                 font-size: 1.4em;
             }
 
-            .end-message {
-                font-size: 1.5em;
-            }
-
-            .exclusive-section {
-                padding: 15px;
-                margin: 20px 0;
-            }
-
-            .exclusive-title {
-                font-size: 1.1em;
-            }
-
             .exclusive-question {
-                font-size: 1em;
-                padding: 12px;
+                font-size: 1.1em;
+                padding: 0 5px;
             }
 
             .share-message {
-                font-size: 0.9em;
-                padding: 12px;
+                font-size: 1em;
+                padding: 10px;
+            }
+
+            .exclusive-section {
+                padding: 20px 15px;
+                margin: 15px 0;
             }
         }
 
@@ -510,7 +443,6 @@
     </style>
 </head>
 <body>
-    <!-- شعار الصفحة المتحرك -->
     <div class="logo-container">
         <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHnCYf6rfF-Wmdx_LxDtwdcK19DvYdEWRTGy4uNoc7shOta04ZBoufP2GFvaC65YOugS5uaAz4mRwtOhyphenhyphenvWZfVpHbZXkwGcOeaSm0iVcfWaqq9D8VAPYu1LSSIOyBLvbPJ8XE4MWHzge4I4Kn_bMb7RPvsOJc51z4wrjsKDuMcyA9i5iktUaE6RQEo088/s1600/1000040085.png" alt="Quizix Logo" class="logo">
     </div>
@@ -524,7 +456,6 @@
             <div class="progress" id="progressBar"></div>
         </div>
 
-        <!-- Welcome Screen -->
         <div class="welcome-screen" id="welcomeScreen">
             <div class="welcome-message">Today's 6 Questions Challenge!</div>
             <div class="daily-topic" id="dailyTopic">Topic: Mixed Questions</div>
@@ -534,7 +465,6 @@
             <div class="countdown" id="welcomeCountdown" style="display: none;">7</div>
         </div>
 
-        <!-- Question Screen -->
         <div class="question-container" id="questionContainer">
             <div class="question-header">
                 <div class="question-number" id="questionNumber">Question 1/6</div>
@@ -545,36 +475,20 @@
             <div class="answers" id="answersContainer"></div>
         </div>
 
-        <!-- End Screen -->
         <div class="end-screen" id="endScreen">
-            <div class="end-message">
-                Congratulations!<br>You've completed today's challenge!
-            </div>
-            
             <div class="exclusive-section">
-                <div class="exclusive-badge">EXCLUSIVE</div>
-                <div class="exclusive-title">Your Special Question</div>
+                <div class="exclusive-badge">EXCLUSIVE QUESTION</div>
                 <div class="exclusive-question" id="exclusiveQuestion">
                     <!-- سيتم ملؤه بالجافا سكريبت -->
                 </div>
-                <div class="exclusive-instruction">
-                    Share your thoughts in the comments below!
-                </div>
             </div>
-            
-            <div class="tomorrow-teaser">
-                🎯 New questions coming tomorrow!
-            </div>
-            
             <div class="share-message">
-                Don't forget to share your thoughts about the exclusive question!<br>
-                See you tomorrow for another exciting challenge!
+                Share your answer in the comments!
             </div>
         </div>
     </div>
 
     <script>
-        // أسئلة اليوم (6 أسئلة متنوعة)
         const dailyQuestions = [
             {
                 topic: "Geography",
@@ -620,16 +534,13 @@
             }
         ];
 
-        // أسئلة حصرية مختلفة
         const exclusiveQuestions = [
             "If you could add one new question to tomorrow's Quizix, what would it be and why?",
             "Which of today's questions was the most challenging for you and why?",
             "What topic would you like to see more of in future Quizix challenges?",
             "If you could create the perfect quiz question, what would it be about?",
             "What's one fact you learned today that surprised you the most?",
-            "If you could ask an expert any question related to today's topics, what would you ask?",
-            "Which question made you think the most and what was your thought process?",
-            "If you had to teach someone about one topic from today's quiz, which would it be and why?"
+            "If you could ask an expert any question related to today's topics, what would you ask?"
         ];
 
         let currentQuestion = 0;
@@ -761,11 +672,9 @@
             document.getElementById('questionContainer').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';
             
-            // اختيار سؤال حصري عشوائي
             const randomIndex = Math.floor(Math.random() * exclusiveQuestions.length);
             document.getElementById('exclusiveQuestion').textContent = exclusiveQuestions[randomIndex];
             
-            // تحديث شريط التقدم إلى 100%
             document.getElementById('progressBar').style.width = `100%`;
         }
 
@@ -777,14 +686,12 @@
             }
         }
 
-        // بدء اللعبة بالنقر على أي مكان في الصفحة
         document.body.addEventListener('click', function() {
             if (!gameStarted) {
                 startGame();
             }
         });
 
-        // بدء اللعبة عند تحميل الصفحة
         window.onload = () => {
             // لا تبدأ اللعبة تلقائياً، انتظار النقر
         };
