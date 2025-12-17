@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -21,6 +21,39 @@
             padding: 15px;
             position: relative;
             cursor: pointer;
+            overflow-x: hidden;
+        }
+
+        /* خلفية تفاعلية مع جسيمات متحركة */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.6), rgba(118, 75, 162, 0.3));
+            animation: floatParticle 15s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         .logo-container {
@@ -33,47 +66,65 @@
         }
 
         .logo {
-            height: 220px;
+            height: 180px;
             width: auto;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-            transition: all 0.3s ease;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+            transition: all 0.5s ease;
             border-radius: 15px;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 12px 24px rgba(102, 126, 234, 0.7));
         }
 
         @keyframes floatLogo {
             0%, 100% { 
-                transform: translateX(-50%) translateY(0);
+                transform: translateX(-50%) translateY(0) rotate(0deg);
             }
             50% { 
-                transform: translateX(-50%) translateY(-15px);
+                transform: translateX(-50%) translateY(-15px) rotate(2deg);
             }
         }
 
         .container {
             width: 90%;
             max-width: 600px;
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 
+                        0 0 0 1px rgba(255, 255, 255, 0.1);
             position: relative;
-            margin-top: 180px;
+            margin-top: 160px;
             cursor: default;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4), 
+                        0 0 0 1px rgba(102, 126, 234, 0.2);
         }
 
         .game-title {
             text-align: center;
-            font-size: 2.2em;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 10px;
             font-weight: 900;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .welcome-screen, .question-container, .end-screen {
-            animation: fadeInScale 0.4s ease-out;
+            animation: fadeInScale 0.5s ease-out;
         }
 
         @keyframes fadeInScale {
@@ -89,37 +140,49 @@
 
         .welcome-screen {
             text-align: center;
-            padding: 10px;
+            padding: 20px 10px;
         }
 
         .welcome-message {
-            font-size: 1.5em;
-            color: #2c3e50;
+            font-size: 1.7em;
+            color: #fff;
             margin-bottom: 15px;
             font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .daily-topic {
-            font-size: 1em;
-            color: #764ba2;
-            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: #9d7aff;
+            margin-bottom: 25px;
             font-weight: 600;
-            padding: 8px;
-            background: rgba(118, 75, 162, 0.1);
-            border-radius: 8px;
+            padding: 10px 15px;
+            background: rgba(157, 122, 255, 0.15);
+            border-radius: 12px;
+            display: inline-block;
+            border: 1px solid rgba(157, 122, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .start-instruction {
-            font-size: 1.1em;
-            color: #667eea;
-            margin: 25px 0;
-            padding: 15px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 10px;
+            font-size: 1.2em;
+            color: #ffd166;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 209, 102, 0.1);
+            border-radius: 15px;
             font-weight: 600;
             line-height: 1.5;
-            border: 2px dashed #667eea;
-            animation: pulse 2s infinite;
+            border: 2px dashed #ffd166;
+            animation: pulse 2s infinite, glow 3s infinite alternate;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .start-instruction:hover {
+            transform: scale(1.05);
+            background: rgba(255, 209, 102, 0.2);
         }
 
         @keyframes pulse {
@@ -128,20 +191,30 @@
                 transform: scale(1);
             }
             50% { 
-                opacity: 0.8;
-                transform: scale(1.05);
+                opacity: 0.9;
+                transform: scale(1.03);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(255, 209, 102, 0.8);
             }
         }
 
         .countdown {
-            font-size: 3.5em;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-size: 4em;
+            background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: 900;
             margin: 20px 0;
-            animation: countdownPulse 1s infinite;
+            animation: countdownPulse 1s infinite, colorShift 3s infinite alternate;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         @keyframes countdownPulse {
@@ -153,19 +226,29 @@
             }
         }
 
-        .question-container {
-            display: none;
-            animation: slideIn 0.3s ease-out;
+        @keyframes colorShift {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(60deg);
+            }
         }
 
-        @keyframes slideIn {
+        /* تأثير السحب للأسئلة */
+        .question-container {
+            display: none;
+            animation: slideInFromBottom 0.5s ease-out;
+        }
+
+        @keyframes slideInFromBottom {
             from {
                 opacity: 0;
-                transform: translateX(-10px);
+                transform: translateY(30px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -173,97 +256,145 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            padding: 10px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .question-number {
-            font-size: 0.95em;
-            color: #667eea;
+            font-size: 1em;
+            color: #9d7aff;
             font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .timer {
-            font-size: 1.6em;
+            font-size: 1.8em;
             color: #fff;
             font-weight: 900;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            padding: 5px 12px;
-            border-radius: 8px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+            animation: timerPulse 1s infinite;
+        }
+
+        @keyframes timerPulse {
+            0%, 100% {
+                box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 20px rgba(245, 87, 108, 0.7);
+            }
         }
 
         .question-text {
-            font-size: 1.3em;
-            color: #2c3e50;
-            margin-bottom: 15px;
+            font-size: 1.4em;
+            color: #fff;
+            margin-bottom: 20px;
             text-align: center;
             font-weight: 600;
-            line-height: 1.3;
+            line-height: 1.4;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            padding: 0 10px;
         }
 
         .question-image {
             width: 100%;
-            max-height: 160px;
+            max-height: 200px;
             object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .question-image:hover {
+            transform: scale(1.02);
         }
 
         .answers {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 10px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
         .answer-option {
             display: flex;
             align-items: center;
             gap: 15px;
-            padding: 12px;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .answer-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .answer-option:hover::before {
+            left: 100%;
         }
 
         .answer-option:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-5px) translateZ(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             border-color: #667eea;
+            background: rgba(102, 126, 234, 0.15);
         }
 
         .answer-letter {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             font-weight: 800;
-            border-radius: 8px;
-            font-size: 1.1em;
+            border-radius: 10px;
+            font-size: 1.2em;
             flex-shrink: 0;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         .answer-text {
             flex-grow: 1;
-            font-size: 0.95em;
+            font-size: 1em;
             font-weight: 600;
-            color: #333;
+            color: #fff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
         .answer-option.correct {
             border-color: #38ef7d;
-            background-color: rgba(56, 239, 125, 0.1);
+            background-color: rgba(56, 239, 125, 0.15);
+            animation: correctPulse 0.6s ease;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .answer-option.correct .answer-letter {
@@ -272,7 +403,14 @@
 
         .answer-option.wrong {
             border-color: #ff6a00;
-            background-color: rgba(255, 106, 0, 0.1);
+            background-color: rgba(255, 106, 0, 0.15);
+            animation: wrongShake 0.5s ease;
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
         .answer-option.wrong .answer-letter {
@@ -288,16 +426,45 @@
             display: none;
             text-align: center;
             padding: 20px 0;
+            animation: slideInFromBottom 0.5s ease-out;
         }
 
         .exclusive-section {
-            margin: 20px 0;
-            padding: 25px 20px;
-            border-radius: 15px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
+            margin: 25px 0;
+            padding: 30px 20px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
             position: relative;
-            border: 3px solid #667eea;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+            overflow: hidden;
+            animation: floatSection 6s ease-in-out infinite;
+        }
+
+        @keyframes floatSection {
+            0%, 100% { 
+                transform: translateY(0);
+            }
+            50% { 
+                transform: translateY(-10px);
+            }
+        }
+
+        .exclusive-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(102, 126, 234, 0.1) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .exclusive-badge {
@@ -307,63 +474,96 @@
             transform: translateX(-50%);
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 6px 20px;
+            padding: 8px 25px;
             border-radius: 20px;
             font-weight: 800;
             font-size: 0.9em;
             letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+            z-index: 2;
         }
 
         .exclusive-question {
-            font-size: 1.3em;
-            color: #2c3e50;
-            line-height: 1.5;
+            font-size: 1.4em;
+            color: #fff;
+            line-height: 1.6;
             font-weight: 600;
-            margin: 20px 0;
-            padding: 0 10px;
+            margin: 25px 0;
+            padding: 0 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
         }
 
         .share-message {
-            font-size: 1.1em;
-            color: #764ba2;
-            margin-top: 25px;
+            font-size: 1.2em;
+            color: #9d7aff;
+            margin-top: 30px;
             font-weight: 700;
-            padding: 12px;
-            background: rgba(118, 75, 162, 0.1);
-            border-radius: 10px;
+            padding: 15px;
+            background: rgba(157, 122, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(157, 122, 255, 0.3);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: colorShift 4s infinite alternate;
         }
 
         .fullscreen-btn {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 4px 8px;
-            background: rgb(255 255 255 / 90%);
-            color: white;
-            border: none;
-            border-radius: 5px;
+            top: 15px;
+            left: 15px;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.7em;
-            transition: all 0.2s;
+            font-size: 0.8em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 20;
+            backdrop-filter: blur(5px);
         }
 
         .fullscreen-btn:hover {
-            background: rgb(255 255 255 / 90%);
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         .progress-bar {
-            height: 5px;
-            background: #e0e0e0;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 3px;
-            margin: 12px 0 15px 0;
+            margin: 15px 0 20px 0;
             overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .progress {
             height: 100%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b);
             width: 0%;
-            transition: width 0.3s ease;
+            transition: width 0.5s ease;
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: progressShine 2s infinite;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         @media (max-width: 600px) {
@@ -372,58 +572,58 @@
             }
             
             .container {
-                padding: 15px 10px;
+                padding: 20px 15px;
                 max-width: 95%;
                 margin-top: 140px;
             }
 
             .game-title {
-                font-size: 1.8em;
+                font-size: 2em;
             }
 
             .welcome-message {
-                font-size: 1.3em;
+                font-size: 1.4em;
             }
 
             .countdown {
-                font-size: 2.8em;
+                font-size: 3em;
             }
 
             .question-text {
-                font-size: 1.1em;
+                font-size: 1.2em;
             }
 
             .answer-option {
-                padding: 10px;
+                padding: 12px;
             }
 
             .answer-letter {
-                width: 32px;
-                height: 32px;
+                width: 36px;
+                height: 36px;
                 font-size: 1em;
             }
 
             .question-image {
-                max-height: 140px;
+                max-height: 160px;
             }
 
             .timer {
-                font-size: 1.4em;
+                font-size: 1.6em;
             }
 
             .exclusive-question {
-                font-size: 1.1em;
-                padding: 0 5px;
+                font-size: 1.2em;
+                padding: 0 10px;
             }
 
             .share-message {
-                font-size: 1em;
-                padding: 10px;
+                font-size: 1.1em;
+                padding: 12px;
             }
 
             .exclusive-section {
-                padding: 20px 15px;
-                margin: 15px 0;
+                padding: 25px 15px;
+                margin: 20px 0;
             }
         }
 
@@ -439,16 +639,23 @@
             .container {
                 margin-top: 120px;
             }
+            
+            .game-title {
+                font-size: 1.8em;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- جسيمات الخلفية التفاعلية -->
+    <div class="particles" id="particlesContainer"></div>
+    
     <div class="logo-container">
         <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHnCYf6rfF-Wmdx_LxDtwdcK19DvYdEWRTGy4uNoc7shOta04ZBoufP2GFvaC65YOugS5uaAz4mRwtOhyphenhyphenvWZfVpHbZXkwGcOeaSm0iVcfWaqq9D8VAPYu1LSSIOyBLvbPJ8XE4MWHzge4I4Kn_bMb7RPvsOJc51z4wrjsKDuMcyA9i5iktUaE6RQEo088/s1600/1000040085.png" alt="Quizix Logo" class="logo">
     </div>
 
     <div class="container">
-        <button class="fullscreen-btn" onclick="toggleFullscreen()">Fullscreen</button>
+        <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
         
         <h1 class="game-title">Quzix</h1>
         
@@ -549,12 +756,45 @@
         let timeLeft = 10;
         let gameStarted = false;
 
+        // إنشاء جسيمات الخلفية التفاعلية
+        function createParticles() {
+            const particlesContainer = document.getElementById('particlesContainer');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // خصائص عشوائية للجسيمات
+                const size = Math.random() * 60 + 10;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
         function startGame() {
             if (gameStarted) return;
             
             gameStarted = true;
             document.getElementById('startInstruction').style.display = 'none';
             document.getElementById('welcomeCountdown').style.display = 'block';
+            
+            // تأثير اهتزاز بسيط عند البدء
+            document.querySelector('.container').style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                document.querySelector('.container').style.transform = 'scale(1)';
+            }, 200);
             
             startWelcomeCountdown();
         }
@@ -676,6 +916,12 @@
             document.getElementById('exclusiveQuestion').textContent = exclusiveQuestions[randomIndex];
             
             document.getElementById('progressBar').style.width = `100%`;
+            
+            // تأثير عند الانتهاء
+            document.querySelector('.container').style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                document.querySelector('.container').style.transform = 'scale(1)';
+            }, 300);
         }
 
         function toggleFullscreen() {
@@ -693,6 +939,7 @@
         });
 
         window.onload = () => {
+            createParticles();
             // لا تبدأ اللعبة تلقائياً، انتظار النقر
         };
     </script>
