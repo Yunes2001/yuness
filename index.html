@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quzix - Daily Quiz</title>
+    <title>Daily Quiz Challenge</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -38,7 +38,7 @@
         .particle {
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.6), rgba(118, 75, 162, 0.3));
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.2));
             animation: floatParticle 15s infinite linear;
         }
 
@@ -58,7 +58,7 @@
 
         .logo-container {
             position: absolute;
-            top: 5px; /* تقليل المسافة من الأعلى */
+            top: 25px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 100;
@@ -66,16 +66,16 @@
         }
 
         .logo {
-            height: 100px; /* تصغير حجم الشعار */
+            height: 130px;
             width: auto;
-            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.6));
             transition: all 0.5s ease;
-            border-radius: 15px;
+            border-radius: 20px;
         }
 
         .logo:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 12px 24px rgba(102, 126, 234, 0.7));
+            transform: scale(1.08);
+            filter: drop-shadow(0 12px 30px rgba(102, 126, 234, 0.8));
         }
 
         @keyframes floatLogo {
@@ -83,18 +83,18 @@
                 transform: translateX(-50%) translateY(0) rotate(0deg);
             }
             50% { 
-                transform: translateX(-50%) translateY(-8px) rotate(2deg);
+                transform: translateX(-50%) translateY(-12px) rotate(3deg);
             }
         }
 
         .container {
             width: 95%;
             max-width: 800px;
-            background: transparent; /* شفاف تماماً */
+            background: transparent;
             border-radius: 20px;
-            padding: 15px; /* تقليل padding */
+            padding: 15px;
             position: relative;
-            margin-top: 110px; /* رفع أكثر للأعلى */
+            margin-top: 160px;
             cursor: default;
             z-index: 10;
             transition: transform 0.5s ease;
@@ -106,15 +106,15 @@
 
         .game-title {
             text-align: center;
-            font-size: 2.2em;
-            background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b);
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b, #f093fb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 8px;
             font-weight: 900;
-            letter-spacing: 1px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            letter-spacing: 1.5px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             padding: 5px 10px;
@@ -123,105 +123,134 @@
             position: relative;
             left: 50%;
             transform: translateX(-50%);
+            opacity: 0;
+            animation: titleAppear 1s ease-out 0.5s forwards;
         }
 
-        .game-title:hover {
-            background: linear-gradient(135deg, #ff6b6b, #764ba2, #667eea);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            transform: translateX(-50%) scale(1.05);
-            text-shadow: 0 0 15px rgba(102, 126, 234, 0.5);
-        }
-
-        .game-title::after {
-            content: "⛶";
-            font-size: 0.6em;
-            margin-left: 8px;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        .game-title:hover::after {
-            opacity: 1;
-            animation: pulseIcon 1s infinite;
-        }
-
-        @keyframes pulseIcon {
-            0%, 100% { 
-                transform: scale(1);
+        @keyframes titleAppear {
+            from { 
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
             }
-            50% { 
-                transform: scale(1.2);
+            to { 
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
             }
         }
 
         .welcome-screen, .question-container, .end-screen {
             animation: fadeInScale 0.5s ease-out;
-            background: rgba(15, 23, 42, 0.7); /* خلفية شبه شفافة للمحتوى فقط */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
         }
 
         @keyframes fadeInScale {
             from { 
                 opacity: 0;
-                transform: scale(0.96);
+                transform: scale(0.95) translateY(20px);
             }
             to { 
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) translateY(0);
             }
+        }
+
+        .welcome-screen::before, .question-container::before, .end-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #ff6b6b, #f093fb);
+            z-index: 1;
         }
 
         .welcome-screen {
             text-align: center;
         }
 
+        .topic-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .topic-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
         .welcome-message {
-            font-size: 1.5em;
+            font-size: 1.8em;
             color: #fff;
-            margin-bottom: 12px;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.4);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .daily-topic {
-            font-size: 1em;
-            color: #9d7aff;
+            font-size: 1.3em;
+            color: #ffd166;
             margin-bottom: 20px;
-            font-weight: 600;
-            padding: 8px 12px;
-            background: rgba(157, 122, 255, 0.15);
-            border-radius: 12px;
+            font-weight: 700;
+            padding: 12px 20px;
+            background: rgba(255, 209, 102, 0.15);
+            border-radius: 15px;
             display: inline-block;
-            border: 1px solid rgba(157, 122, 255, 0.3);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255, 209, 102, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+            animation: pulseTopic 3s infinite;
+        }
+
+        @keyframes pulseTopic {
+            0%, 100% { 
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
+            50% { 
+                box-shadow: 0 5px 25px rgba(255, 209, 102, 0.4);
+            }
         }
 
         .start-instruction {
-            font-size: 1.1em;
-            color: #ffd166;
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(255, 209, 102, 0.1);
-            border-radius: 15px;
-            font-weight: 600;
+            font-size: 1.3em;
+            color: #9d7aff;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(157, 122, 255, 0.1), rgba(102, 126, 234, 0.1));
+            border-radius: 20px;
+            font-weight: 700;
             line-height: 1.5;
-            border: 2px dashed #ffd166;
+            border: 3px dashed #9d7aff;
             animation: pulse 2s infinite, glow 3s infinite alternate;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
         }
 
         .start-instruction:hover {
             transform: scale(1.05);
-            background: rgba(255, 209, 102, 0.2);
+            background: linear-gradient(135deg, rgba(157, 122, 255, 0.2), rgba(102, 126, 234, 0.2));
+            border: 3px solid #9d7aff;
         }
 
         @keyframes pulse {
@@ -237,23 +266,24 @@
 
         @keyframes glow {
             0% {
-                box-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+                box-shadow: 0 0 15px rgba(157, 122, 255, 0.5);
             }
             100% {
-                box-shadow: 0 0 20px rgba(255, 209, 102, 0.8);
+                box-shadow: 0 0 30px rgba(157, 122, 255, 0.8);
             }
         }
 
         .countdown {
-            font-size: 3.5em;
-            background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b);
+            font-size: 4em;
+            background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b, #f093fb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: 900;
-            margin: 15px 0;
-            animation: countdownPulse 1s infinite, colorShift 3s infinite alternate;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            margin: 20px 0;
+            animation: countdownPulse 1s infinite, colorShift 4s infinite alternate;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
         }
 
         @keyframes countdownPulse {
@@ -261,7 +291,7 @@
                 transform: scale(1);
             }
             50% { 
-                transform: scale(1.1);
+                transform: scale(1.15);
             }
         }
 
@@ -270,20 +300,20 @@
                 filter: hue-rotate(0deg);
             }
             100% {
-                filter: hue-rotate(60deg);
+                filter: hue-rotate(90deg);
             }
         }
 
-        /* تأثير السحب للأسئلة */
+        /* تأثيرات الأسئلة */
         .question-container {
             display: none;
-            animation: slideInFromBottom 0.5s ease-out;
+            animation: slideInQuestion 0.7s ease-out;
         }
 
-        @keyframes slideInFromBottom {
+        @keyframes slideInQuestion {
             from {
                 opacity: 0;
-                transform: translateY(30px) scale(0.95);
+                transform: translateY(50px) scale(0.95);
             }
             to {
                 opacity: 1;
@@ -295,87 +325,103 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            padding: 10px 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
 
         .question-number {
-            font-size: 0.9em;
+            font-size: 1.1em;
             color: #9d7aff;
             font-weight: 800;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question-number::before {
+            content: '📋';
+            font-size: 1.2em;
         }
 
         .timer {
-            font-size: 1.6em;
+            font-size: 1.8em;
             color: #fff;
             font-weight: 900;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            padding: 6px 12px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
-            animation: timerPulse 1s infinite;
+            padding: 10px 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.5);
+            animation: timerPulse 1.5s infinite;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timer::before {
+            content: '⏱️';
+            font-size: 0.9em;
         }
 
         @keyframes timerPulse {
             0%, 100% {
-                box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+                box-shadow: 0 5px 20px rgba(245, 87, 108, 0.5);
             }
             50% {
-                box-shadow: 0 4px 20px rgba(245, 87, 108, 0.7);
+                box-shadow: 0 5px 30px rgba(245, 87, 108, 0.8);
             }
         }
 
         .question-text {
-            font-size: 1.3em;
+            font-size: 1.6em;
             color: #fff;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
             text-align: center;
-            font-weight: 600;
-            line-height: 1.4;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            padding: 0 10px;
+            font-weight: 700;
+            line-height: 1.5;
+            text-shadow: 0 3px 8px rgba(0,0,0,0.4);
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            border-right: 5px solid #764ba2;
+            animation: textGlow 3s infinite alternate;
         }
 
-        .question-image {
-            width: 100%;
-            max-height: 180px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .question-image:hover {
-            transform: scale(1.02);
+        @keyframes textGlow {
+            0% {
+                box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            }
+            100% {
+                box-shadow: 0 5px 25px rgba(118, 75, 162, 0.4);
+            }
         }
 
         .answers {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 12px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
         .answer-option {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.08);
+            gap: 15px;
+            padding: 18px 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05));
             border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            border-radius: 15px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
             transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .answer-option::before {
@@ -385,8 +431,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.7s;
         }
 
         .answer-option:hover::before {
@@ -394,88 +440,114 @@
         }
 
         .answer-option:hover {
-            transform: translateY(-5px) translateZ(10px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transform: translateY(-8px) translateZ(15px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
             border-color: #667eea;
-            background: rgba(102, 126, 234, 0.15);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
         }
 
         .answer-letter {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            font-weight: 800;
-            border-radius: 10px;
-            font-size: 1.1em;
+            font-weight: 900;
+            border-radius: 12px;
+            font-size: 1.2em;
             flex-shrink: 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         .answer-text {
             flex-grow: 1;
-            font-size: 0.95em;
-            font-weight: 600;
+            font-size: 1.1em;
+            font-weight: 700;
             color: #fff;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
         }
 
+        /* تأثيرات الإجابة الصحيحة */
         .answer-option.correct {
             border-color: #38ef7d;
-            background-color: rgba(56, 239, 125, 0.15);
-            animation: correctPulse 0.6s ease;
+            background: linear-gradient(135deg, rgba(56, 239, 125, 0.2), rgba(17, 153, 142, 0.2));
+            animation: correctReveal 0.8s ease forwards, correctGlow 1.5s infinite alternate;
+            transform: translateY(-5px);
         }
 
-        @keyframes correctPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        @keyframes correctReveal {
+            0% { 
+                transform: scale(1);
+                border-width: 2px;
+            }
+            50% { 
+                transform: scale(1.05);
+                border-width: 4px;
+            }
+            100% { 
+                transform: scale(1.03);
+                border-width: 3px;
+            }
+        }
+
+        @keyframes correctGlow {
+            0% {
+                box-shadow: 0 10px 25px rgba(56, 239, 125, 0.3);
+            }
+            100% {
+                box-shadow: 0 10px 35px rgba(56, 239, 125, 0.6);
+            }
         }
 
         .answer-option.correct .answer-letter {
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(56, 239, 125, 0.5);
         }
 
+        /* تأثيرات الإجابة الخاطئة */
         .answer-option.wrong {
             border-color: #ff6a00;
-            background-color: rgba(255, 106, 0, 0.15);
-            animation: wrongShake 0.5s ease;
+            background: linear-gradient(135deg, rgba(255, 106, 0, 0.15), rgba(238, 9, 121, 0.15));
+            animation: wrongReveal 0.5s ease;
         }
 
-        @keyframes wrongShake {
+        @keyframes wrongReveal {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
 
         .answer-option.wrong .answer-letter {
             background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+            transform: scale(0.95);
+            box-shadow: 0 5px 15px rgba(255, 106, 0, 0.4);
         }
 
         .answer-option:disabled {
             cursor: not-allowed;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
         .end-screen {
             display: none;
             text-align: center;
-            animation: slideInFromBottom 0.5s ease-out;
+            animation: slideInQuestion 0.7s ease-out;
         }
 
         .exclusive-section {
-            margin: 20px 0;
-            padding: 25px 15px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
+            margin: 25px 0;
+            padding: 30px 20px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(15px);
             position: relative;
-            border: 2px solid rgba(102, 126, 234, 0.4);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
             overflow: hidden;
             animation: floatSection 6s ease-in-out infinite;
         }
@@ -485,7 +557,7 @@
                 transform: translateY(0);
             }
             50% { 
-                transform: translateY(-8px);
+                transform: translateY(-10px);
             }
         }
 
@@ -496,8 +568,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, transparent 30%, rgba(102, 126, 234, 0.1) 50%, transparent 70%);
-            animation: shine 3s infinite;
+            background: linear-gradient(45deg, transparent 30%, rgba(102, 126, 234, 0.15) 50%, transparent 70%);
+            animation: shine 4s infinite;
         }
 
         @keyframes shine {
@@ -507,62 +579,63 @@
 
         .exclusive-badge {
             position: absolute;
-            top: -10px;
+            top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b);
             color: white;
-            padding: 6px 20px;
-            border-radius: 20px;
-            font-weight: 800;
-            font-size: 0.85em;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-weight: 900;
+            font-size: 1em;
+            letter-spacing: 1.5px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
             z-index: 2;
+            text-transform: uppercase;
         }
 
         .exclusive-question {
-            font-size: 1.3em;
+            font-size: 1.5em;
             color: #fff;
             line-height: 1.6;
-            font-weight: 600;
-            margin: 20px 0;
-            padding: 0 12px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-weight: 700;
+            margin: 25px 0;
+            padding: 0 20px;
+            text-shadow: 0 3px 8px rgba(0,0,0,0.4);
             position: relative;
             z-index: 1;
         }
 
         .share-message {
-            font-size: 1.1em;
+            font-size: 1.3em;
             color: #9d7aff;
-            margin-top: 25px;
-            font-weight: 700;
-            padding: 12px;
-            background: rgba(157, 122, 255, 0.1);
-            border-radius: 12px;
-            border: 1px solid rgba(157, 122, 255, 0.3);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            animation: colorShift 4s infinite alternate;
+            margin-top: 30px;
+            font-weight: 800;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(157, 122, 255, 0.15), rgba(102, 126, 234, 0.15));
+            border-radius: 15px;
+            border: 2px solid rgba(157, 122, 255, 0.4);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            animation: colorShift 5s infinite alternate;
         }
 
         .progress-bar {
-            height: 6px;
+            height: 8px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            margin: 12px 0 15px 0;
+            border-radius: 4px;
+            margin: 15px 0 20px 0;
             overflow: hidden;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.2);
             position: relative;
             z-index: 20;
         }
 
         .progress {
             height: 100%;
-            background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b);
+            background: linear-gradient(135deg, #667eea, #764ba2, #ff6b6b, #f093fb);
             width: 0%;
-            transition: width 0.5s ease;
-            border-radius: 3px;
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 4px;
             position: relative;
             overflow: hidden;
         }
@@ -574,8 +647,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: progressShine 2s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            animation: progressShine 2.5s infinite;
         }
 
         @keyframes progressShine {
@@ -583,90 +656,131 @@
             100% { transform: translateX(100%); }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .logo {
-                height: 80px; /* تصغير أكثر للجوال */
+                height: 110px;
             }
             
             .logo-container {
-                top: 3px; /* تقريب أكثر للجوال */
+                top: 20px;
             }
             
             .container {
                 padding: 10px;
                 max-width: 98%;
-                margin-top: 90px; /* رفع أكثر للجوال */
+                margin-top: 140px;
             }
 
             .game-title {
-                font-size: 1.8em;
+                font-size: 2em;
             }
 
             .welcome-screen, .question-container, .end-screen {
-                padding: 15px;
+                padding: 20px;
             }
 
             .welcome-message {
-                font-size: 1.2em;
+                font-size: 1.5em;
+            }
+
+            .daily-topic {
+                font-size: 1.1em;
+                padding: 10px 15px;
+            }
+
+            .start-instruction {
+                font-size: 1.1em;
+                padding: 15px;
+                margin: 20px 0;
             }
 
             .countdown {
-                font-size: 2.5em;
+                font-size: 3em;
+            }
+
+            .topic-image {
+                max-height: 160px;
             }
 
             .question-text {
-                font-size: 1.1em;
+                font-size: 1.3em;
+                padding: 15px;
             }
 
             .answer-option {
-                padding: 10px;
+                padding: 15px;
             }
 
             .answer-letter {
-                width: 32px;
-                height: 32px;
-                font-size: 0.95em;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1em;
             }
 
-            .question-image {
-                max-height: 140px;
+            .answer-text {
+                font-size: 1em;
             }
 
             .timer {
-                font-size: 1.4em;
+                font-size: 1.6em;
+                padding: 8px 15px;
             }
 
             .exclusive-question {
-                font-size: 1.1em;
-                padding: 0 10px;
+                font-size: 1.2em;
+                padding: 0 15px;
             }
 
             .share-message {
-                font-size: 1em;
-                padding: 10px;
+                font-size: 1.1em;
+                padding: 15px;
             }
 
             .exclusive-section {
-                padding: 20px 12px;
-                margin: 15px 0;
+                padding: 25px 15px;
+                margin: 20px 0;
             }
         }
 
-        @media (max-width: 400px) {
+        @media (max-width: 480px) {
             .logo {
-                height: 70px;
+                height: 90px;
             }
             
             .container {
-                margin-top: 80px;
+                margin-top: 120px;
             }
             
             .game-title {
-                font-size: 1.6em;
+                font-size: 1.7em;
             }
             
             .welcome-screen, .question-container, .end-screen {
+                padding: 15px;
+            }
+            
+            .topic-image {
+                max-height: 130px;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .timer {
+                align-self: flex-end;
+            }
+            
+            .answer-option {
                 padding: 12px;
+                gap: 12px;
+            }
+            
+            .answer-letter {
+                width: 35px;
+                height: 35px;
             }
         }
     </style>
@@ -676,11 +790,11 @@
     <div class="particles" id="particlesContainer"></div>
     
     <div class="logo-container">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHnCYf6rfF-Wmdx_LxDtwdcK19DvYdEWRTGy4uNoc7shOta04ZBoufP2GFvaC65YOugS5uaAz4mRwtOhyphenhyphenvWZfVpHbZXkwGcOeaSm0iVcfWaqq9D8VAPYu1LSSIOyBLvbPJ8XE4MWHzge4I4Kn_bMb7RPvsOJc51z4wrjsKDuMcyA9i5iktUaE6RQEo088/s1600/1000040085.png" alt="Quizix Logo" class="logo">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHnCYf6rfF-Wmdx_LxDtwdcK19DvYdEWRTGy4uNoc7shOta04ZBoufP2GFvaC65YOugS5uaAz4mRwtOhyphenhyphenvWZfVpHbZXkwGcOeaSm0iVcfWaqq9D8VAPYu1LSSIOyBLvbPJ8XE4MWHzge4I4Kn_bMb7RPvsOJc51z4wrjsKDuMcyA9i5iktUaE6RQEo088/s1600/1000040085.png" alt="Quiz Logo" class="logo">
     </div>
 
     <div class="container">
-        <h1 class="game-title" onclick="toggleFullscreen()">Quzix</h1>
+        <div class="game-title">Daily Challenge</div>
         
         <div class="progress-bar">
             <div class="progress" id="progressBar"></div>
@@ -688,11 +802,12 @@
 
         <div class="welcome-screen" id="welcomeScreen">
             <div class="welcome-message">Today's 6 Questions Challenge!</div>
-            <div class="daily-topic" id="dailyTopic">Topic: football</div>
+            <img class="topic-image" id="topicImage" src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Football Topic">
+            <div class="daily-topic" id="dailyTopic">⚽ Topic: Football Champions League ⚽</div>
             <div class="start-instruction" id="startInstruction">
-                Click anywhere to start the quiz!
+                🎮 Click anywhere to start the quiz! 🎮
             </div>
-            <div class="countdown" id="welcomeCountdown" style="display: none;">7</div>
+            <div class="countdown" id="welcomeCountdown" style="display: none;">5</div>
         </div>
 
         <div class="question-container" id="questionContainer">
@@ -701,19 +816,18 @@
                 <div class="timer" id="timer">10</div>
             </div>
             <div class="question-text" id="questionText"></div>
-            <img class="question-image" id="questionImage" src="" alt="Question Image">
             <div class="answers" id="answersContainer"></div>
         </div>
 
         <div class="end-screen" id="endScreen">
             <div class="exclusive-section">
-                <div class="exclusive-badge">EXCLUSIVE QUESTION</div>
+                <div class="exclusive-badge">Exclusive Challenge</div>
                 <div class="exclusive-question" id="exclusiveQuestion">
                     <!-- سيتم ملؤه بالجافا سكريبت -->
                 </div>
             </div>
             <div class="share-message">
-                Share your answer in the comments!
+                🏆 Share your answer in the comments! 🏆
             </div>
         </div>
     </div>
@@ -721,44 +835,39 @@
     <script>
         const dailyQuestions = [
             {
-                topic: "Geography",
+                topic: "Football",
                 question: "Which club lost the most Champions League finals?",
-                image: "https://images.unsplash.com/photo-1506626637585-0802df0d0269?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 answers: ["Bayern Munich", "Juventus", "AC Milan"],
                 correct: 1
             },
             {
-                topic: "Science",
+                topic: "Football",
                 question: "Who is the youngest goalscorer in Champions League history?",
-                image: "https://images.unsplash.com/photo-1542668358-a44c1225f11f?q=80&w=435&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                answers: ["Ansu Fati", "Karim Benzema", "lamine yamal"],
+                answers: ["Ansu Fati", "Karim Benzema", "Lamine Yamal"],
                 correct: 0
             },
             {
-                topic: "History",
+                topic: "Football",
                 question: "Which team won the Champions League without losing a single match in 2003–04?",
-                image: "https://www.classicfootballshirts.co.uk/cdn-cgi/image/fit=pad,q=80,w=1000,h=1000,f=webp//pub/media/catalog/product//u/e/uefa_cl_winner2012_patch_2.jpg",
                 answers: ["Porto", "Marseille", "Real Madrid"],
                 correct: 0
             },
             {
-                topic: "Technology",
+                topic: "Football",
                 question: "Who scored the fastest goal in a Champions League final?",
-                image: "https://images.unsplash.com/photo-1614632537423-1e6c2e7e0aab?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                answers: ["Cristiano Ronaldo", "Raúl", "Paolo Maldini"],
+                answers: ["Cristiano Ronaldo", "Paolo Maldini", "Raúl"],
                 correct: 1
             },
             {
-                topic: "Sports",
+                topic: "Football",
                 question: "Which club won the Champions League in 2012?",
-                image: "https://images.unsplash.com/photo-1614632537190-23e4146777db?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 answers: ["Chelsea", "Bayern Munich", "Barcelona"],
                 correct: 0
             },
             {
-                topic: "Music",
+                topic: "Football",
                 question: "Which club won the Champions League with the lowest domestic league position?",
-                image: "https://images.unsplash.com/photo-1473976345543-9ffc928e648d?q=80&w=1559&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 answers: ["Chelsea", "Liverpool", "Inter Milan"],
                 correct: 0
             }
@@ -766,7 +875,10 @@
 
         const exclusiveQuestions = [
             "Which club won the UEFA Champions League final after being 3–0 down at halftime, completing the biggest comeback in final history, and who was the coach of that team at the time?",
-            
+            "Who is the only player to have won the UEFA Champions League with three different clubs?",
+            "Which stadium has hosted the most UEFA Champions League finals?",
+            "Which team has the longest unbeaten run in UEFA Champions League history and how many matches was it?",
+            "Who is the oldest player to ever score in a UEFA Champions League match?"
         ];
 
         let currentQuestion = 0;
@@ -778,18 +890,18 @@
         // إنشاء جسيمات الخلفية التفاعلية
         function createParticles() {
             const particlesContainer = document.getElementById('particlesContainer');
-            const particleCount = 30;
+            const particleCount = 40;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
                 // خصائص عشوائية للجسيمات
-                const size = Math.random() * 60 + 10;
+                const size = Math.random() * 80 + 15;
                 const posX = Math.random() * 100;
                 const posY = Math.random() * 100;
-                const delay = Math.random() * 15;
-                const duration = Math.random() * 10 + 15;
+                const delay = Math.random() * 20;
+                const duration = Math.random() * 15 + 20;
                 
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
@@ -797,6 +909,10 @@
                 particle.style.top = `${posY}%`;
                 particle.style.animationDelay = `${delay}s`;
                 particle.style.animationDuration = `${duration}s`;
+                
+                // إضافة تدرج لوني عشوائي
+                const hue = Math.floor(Math.random() * 360);
+                particle.style.background = `radial-gradient(circle, hsla(${hue}, 80%, 70%, 0.4), hsla(${hue + 30}, 80%, 50%, 0.2))`;
                 
                 particlesContainer.appendChild(particle);
             }
@@ -809,22 +925,28 @@
             document.getElementById('startInstruction').style.display = 'none';
             document.getElementById('welcomeCountdown').style.display = 'block';
             
-            // تأثير اهتزاز بسيط عند البدء
+            // تأثيرات عند البدء
             document.querySelector('.container').style.transform = 'scale(1.05)';
+            document.querySelector('.topic-image').style.transform = 'scale(1.1)';
+            
             setTimeout(() => {
                 document.querySelector('.container').style.transform = 'scale(1)';
-            }, 200);
+                document.querySelector('.topic-image').style.transform = 'scale(1)';
+            }, 300);
             
             startWelcomeCountdown();
         }
 
         function startWelcomeCountdown() {
-            let countdown = 7;
+            let countdown = 5;
             const countdownEl = document.getElementById('welcomeCountdown');
             
             const countdownInterval = setInterval(() => {
                 countdown--;
                 countdownEl.textContent = countdown;
+                
+                // تأثيرات أثناء العد التنازلي
+                countdownEl.style.transform = `scale(${1 + (5 - countdown) * 0.05})`;
                 
                 if (countdown === 0) {
                     clearInterval(countdownInterval);
@@ -851,8 +973,6 @@
             const q = dailyQuestions[currentQuestion];
             document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1}/6`;
             document.getElementById('questionText').textContent = q.question;
-            document.getElementById('questionImage').src = q.image;
-            document.getElementById('questionImage').alt = `Image for question ${currentQuestion + 1}`;
             
             const answersContainer = document.getElementById('answersContainer');
             answersContainer.innerHTML = '';
@@ -875,6 +995,16 @@
                 option.appendChild(letter);
                 option.appendChild(text);
                 answersContainer.appendChild(option);
+                
+                // تأثير ظهور متتابع للإجابات
+                option.style.opacity = '0';
+                option.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    option.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    option.style.opacity = '1';
+                    option.style.transform = 'translateY(0)';
+                }, index * 150);
             });
 
             startTimer();
@@ -888,13 +1018,21 @@
                 timeLeft--;
                 document.getElementById('timer').textContent = timeLeft;
                 
+                // تغيير لون المؤقت عندما يقل الوقت
+                if (timeLeft <= 5) {
+                    document.getElementById('timer').style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ee0979 100%)';
+                    document.getElementById('timer').style.animation = 'timerPulse 0.8s infinite';
+                } else {
+                    document.getElementById('timer').style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                }
+                
                 if (timeLeft === 0) {
                     clearInterval(timer);
                     showCorrectAnswer();
                     setTimeout(() => {
                         currentQuestion++;
                         loadQuestion();
-                    }, 1200);
+                    }, 1500);
                 }
             }, 1000);
         }
@@ -906,18 +1044,33 @@
             
             options.forEach(option => option.style.pointerEvents = 'none');
             
-            if (index === correct) {
-                options[index].classList.add('correct');
-                score++;
-            } else {
-                options[index].classList.add('wrong');
-                options[correct].classList.add('correct');
-            }
+            // تأثيرات للإجابة المختارة
+            options[index].style.transform = 'scale(0.98)';
+            
+            setTimeout(() => {
+                if (index === correct) {
+                    options[index].classList.add('correct');
+                    score++;
+                    
+                    // تأثير إضافي للإجابة الصحيحة
+                    setTimeout(() => {
+                        options[index].style.transform = 'scale(1.03) translateY(-8px)';
+                    }, 300);
+                } else {
+                    options[index].classList.add('wrong');
+                    options[correct].classList.add('correct');
+                    
+                    // تأثير إضافي للإجابة الصحيحة بعد الخطأ
+                    setTimeout(() => {
+                        options[correct].style.transform = 'scale(1.03) translateY(-8px)';
+                    }, 300);
+                }
+            }, 200);
 
             setTimeout(() => {
                 currentQuestion++;
                 loadQuestion();
-            }, 1200);
+            }, 1800);
         }
 
         function showCorrectAnswer() {
@@ -925,6 +1078,11 @@
             const correct = dailyQuestions[currentQuestion].correct;
             options.forEach(option => option.style.pointerEvents = 'none');
             options[correct].classList.add('correct');
+            
+            // تأثير ظهور الإجابة الصحيحة عند انتهاء الوقت
+            setTimeout(() => {
+                options[correct].style.transform = 'scale(1.03) translateY(-8px)';
+            }, 300);
         }
 
         function endGame() {
@@ -936,23 +1094,26 @@
             
             document.getElementById('progressBar').style.width = `100%`;
             
-            // تأثير عند الانتهاء
+            // تأثيرات عند الانتهاء
             document.querySelector('.container').style.transform = 'scale(1.05)';
             setTimeout(() => {
                 document.querySelector('.container').style.transform = 'scale(1)';
+            }, 400);
+            
+            // إضافة تأثيرات للشاشة النهائية
+            const exclusiveSection = document.querySelector('.exclusive-section');
+            exclusiveSection.style.transform = 'translateY(0) scale(0.95)';
+            exclusiveSection.style.opacity = '0';
+            
+            setTimeout(() => {
+                exclusiveSection.style.transition = 'transform 0.8s ease, opacity 0.8s ease';
+                exclusiveSection.style.transform = 'translateY(0) scale(1)';
+                exclusiveSection.style.opacity = '1';
             }, 300);
         }
 
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                document.exitFullscreen();
-            }
-        }
-
         document.body.addEventListener('click', function(event) {
-            // لا نبدأ اللعبة إذا تم النقر على عنوان Quzix (لأنه لتفعيل وضع ملء الشاشة)
+            // لا نبدأ اللعبة إذا تم النقر على العنوان
             if (event.target.classList.contains('game-title')) {
                 return;
             }
@@ -964,7 +1125,11 @@
 
         window.onload = () => {
             createParticles();
-            // لا تبدأ اللعبة تلقائياً، انتظار النقر
+            
+            // تأثير ظهور تدريجي للعناصر
+            setTimeout(() => {
+                document.querySelector('.welcome-screen').style.opacity = '1';
+            }, 500);
         };
     </script>
 </body>
